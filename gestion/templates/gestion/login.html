@@ -1,0 +1,34 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block titre %}{% trans "Ossia : Connexion" %}{% endblock %}
+{% block content %}
+
+<section id="orchestre" class="main style2 right dark fullscreen">
+	<div class="content box style2">
+		<header>
+								<h2>{% trans "Connexion" %} :</h2>
+								</header>
+                  {% if form.errors %}
+                  <p>{% trans "Mot de passe ou nom d'utilisateur incorrect" %}</p>
+                  {% endif %}
+                  {% if error %}
+                  <p>{{ error }}</p>
+                  {% endif %}
+                  <form method="post" action="{% url 'login' %}">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <input type="submit" value="{% trans "Connexion" %}" />
+                  {% if next %}
+                  <input type="hidden" name="next" value={{ next }} />
+                  {% else %}
+                  <input type="hidden" name="next" value="{% url 'home' %}" /> &nbsp 	<a href="{% url 'registration' %}">Créer un compte</a>
+                  {% endif %}
+                  </form>
+
+								</div>
+							</section>
+
+
+
+{% endblock %}

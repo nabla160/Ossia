@@ -1,0 +1,21 @@
+{% extends "gestion/base.html" %}
+{% load i18n avatar_tags %}
+{% block titre %}{% trans "Modification de l'avatar" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+        <p>{% trans "Avatar courant: " %}</p>
+           {% avatar user %}
+
+           <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+               {{ upload_avatar_form.as_p }}
+               <p>{% csrf_token %}<input type="submit" value="{% trans "Ajouter une nouvelle image" %}" /></p>
+           </form>
+
+
+<a href="{% url "trombonoscope:change" %}" class="button alt">{% trans "Retour au profil"%}</a>
+</div></div></section></section>
+{% endblock %}

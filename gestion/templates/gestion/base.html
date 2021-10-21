@@ -1,0 +1,91 @@
+{% load static %}
+{% load i18n %}
+{% load changelang %}
+{% load avatar_tags %}
+{% get_current_language as current_language %}
+
+<!DOCTYPE HTML>
+<!--
+	Big Picture by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="shortcut icon" href="{% static 'images/logoround.ico' %}">
+<meta charset="utf-8" />
+<title>{% block titre %}{% endblock %}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{% block extrahead %}{% endblock %}
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+			<a href="{% url 'home' %}">	<img src="{% static 'images/logo.png' %}" style="width:auto; height:3em"/></a>
+				<nav>
+					<ul>
+						{% if not user.is_authenticated %}
+						<li><a href="{% url 'home' %}#orchestre">L'orchestre</a></li>
+						<li><a href="{% url 'home' %}#bureau">Le bureau</a></li>
+						<li><a href="{% url 'home' %}#chef">Les chefs</a></li>
+						<li><a href="{% url 'home' %}#contact">Contact</a></li>
+						<li><a href="{% url 'rejoins' %}">Rejoingez nous</a></li>
+						<li><a href="{% url 'partitions:liste' %}">Repertoire</a></li>
+						<li><a href="{% url 'calendrier:liste' %}">Agenda</a></li>
+						<li><a href="{% url 'login' %}"><button>Se connecter</button></a></li>
+						{% else %}
+						<li><a href="{% url 'partitions:liste' %}">Repertoire</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+			</header>
+
+
+      {% block content %}
+      {% endblock %}
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<!-- Icons -->
+						<ul class="icons">
+							<li><a href="https://www.facebook.com/Ossia-harmonie-de-PSL-110119993861351" target="_blank" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="harmonie_psl@lists.ens.psl.eu" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>
+
+				</footer>
+
+			<!-- Scripts -->
+				<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.poptrox.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+				<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+				<script src="{% static 'assets/js/browser.min.js' %}"></script>
+				<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+				<script src="{% static 'assets/js/util.js' %}"></script>
+				<script src="{% static 'assets/js/main.js' %}"></script>
+
+			<script type="text/javascript">
+
+
+		function ouvrirFermerSpoiler(div)
+		{
+				var divContenu = div.getElementsByTagName('div')[1];
+
+
+				if(divContenu.style.display == 'block')
+						divContenu.style.display = 'none';
+				else
+						divContenu.style.display = 'block';
+		}
+
+</script>
+{% block script %}
+{% endblock %}
+	</body>
+</html>

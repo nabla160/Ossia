@@ -1,0 +1,56 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block titre %}{% trans "Modification du profil" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Modification du profil" %} :</h2>
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% if success %}
+<p>{% trans "Changements enregistrés" %} !</p>
+{% endif %}
+<p><a href="{% url "change_password" %}" class="button">{% trans "Changer mon mot de passe" %}</a> &nbsp <a href="{% url "change-doodle-name" %}" class="button">{% trans "Changer mon nom pour les doodles" %}</a></p>
+<form action="{% url 'change_membre' %}" method="post">
+    {% csrf_token %}
+    {{ comp_form.non_field_errors }}
+    {{ user_form.as_p }}
+    {% for field in comp_form %}
+ <div class="fieldWrapper">
+        {{ field.errors }}
+
+
+        {% if field.id_for_label == "id_instru_autre" %}
+  <div id="instru_autre_field" {% if comp_form.instru.value != "Autre" %} style="display: none; "{% endif %}>
+{% elif field.id_for_label == "id_instru_bonus" %}
+  <div id="instru_bonus_field" {% if comp_form.multi_instrumentiste.value == "Non" %} style="display: none; "{% endif %}>
+{% else %}
+  <div>
+{% endif %}
+     <p>{{ field.label_tag }}
+        {{ field }}	{% if field.help_text %}
+        {{ field.help_text|safe }}
+            {% endif %}</p>
+</div>
+
+
+
+
+</div>
+
+{% endfor %}
+
+    <input type="submit" value="{% trans "Valider" %}" /> &nbsp; <a href="{% url 'home' %}" class="button alt">{% trans "Retour à l'acceuil" %}</a>
+</form>
+
+</div>
+</div>
+</section>
+</section>
+
+{% endblock %}

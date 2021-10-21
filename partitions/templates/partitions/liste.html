@@ -1,0 +1,41 @@
+{% extends "gestion/base.html" %}
+
+{% block titre %}Liste des partitions{% endblock %}
+
+{% block content %}
+<section id="orchestre" class="main style2 right dark fullscreen">
+	<div class="content box style2">
+		<header>
+  <h1>Liste des partitions</h1>
+  		</header>
+  {% if suppression %}
+    <p>{{ suppression }}</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <h3><a href="{% url "partitions:ajouter_morceau" %}">Ajouter un morceau</a></h3>
+  {% endif %}
+
+  {% for category in categories %}
+    <h3 class="part">{{ category }}</h3>
+    <ul class="filelist">
+    {% for partition in category.partitionset_set.all %}
+      <li>
+        {% if not user.is_authenticated %}
+          {{ partition.nom }} - {{ partition.auteur }}
+        {% else %}
+          <a href="{% url "partitions:listepart" partition.nom partition.auteur %}"
+             class="fichier">{{ partition.nom }} - {{ partition.auteur }}</a>
+        {% endif %}
+        {% if user.profile.is_chef %}
+          <a href="{% url "partitions:conf_delete_morc" partition.nom partition.auteur %}"
+             class="supprimer">Supprimer</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endfor %}
+
+  								</div>
+  							</section>
+{% endblock %}

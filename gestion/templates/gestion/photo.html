@@ -1,0 +1,44 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% get_current_language as current_language %}
+{% load autotranslate %}
+{% block titre %}{% trans "Liste des Photos" %}{% endblock %}
+{% block content %}
+
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+  <h2>{% trans "Liste des photos" %} :</h2>
+
+
+    <p><a href="{% url "add_photo" %}" class="button">{% trans "Ajouter une photo" %}</a></p>
+
+  <ul class="filelist">
+  {% for p in photos %}
+    <li>
+      <p> <b>{{ p.name }}</b> {% if p.cat == 'n' %}: {% trans "Non utilisée" %} <br>( {% trans "Pensez à supprimer les photos non utilisée" %}){% endif %}
+        {% if p.cat == 'home_join' %}: {% trans "Rejoignez nous" %} {% endif %}
+        {% if p.cat == 'home_contact' %}: {% trans "Nous Contacter"  %} {% endif %}
+        {% if p.cat == 'home_rep' %}: {% trans "Répertoire de l'acceuil" %} {% endif %}
+        {% if p.cat == 'login' %}: {% trans "Connexion" %} {% endif %}
+        {% if p.cat == 'change_membre' %}: {% trans "Modification du profil" %} {% endif %}
+        {% if p.cat == 'inscription_membre' %}: {% trans "Inscription" %} {% endif %}
+        {% if p.cat == 'home' %}: {% trans "Calendrier connecté" %} {% endif %}
+        {% if p.cat == 'liste' %}: {% trans "Agenda public" %} {% endif %}
+        {% if p.cat == 'part' %}: {% trans "Répertoire" %} {% endif %}
+        {% if p.cat == 'instru' %}: {% trans "Instruments" %} {% endif %}
+
+      &nbsp  <a class="button alt" href="{% url "edit_photo" p.id %}">{% trans "Modifier" %}</a>&nbsp<a class="button alt" href="{% url "delete_photo" p.id %}">{% trans "Supprimer" %}</a>
+      <img src="{{p.image.url}}" alt="" style='vertical-align: middle;height:4em;width:auto' /></p>
+</li>
+
+  {% empty %}
+    <p>{% trans "Pas de photos pour le moment" %}</p>
+  {% endfor %}
+  </ul>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

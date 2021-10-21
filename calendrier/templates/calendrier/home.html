@@ -1,0 +1,241 @@
+{% extends "gestion/base.html" %}
+{% load staticfiles %}
+{% load frenchmonth %}
+{% load i18n %}
+{% load translate %}
+{% load autotranslate %}
+
+{% get_current_language as current_language %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'css/calend.css' %}" />
+{% endblock %}
+
+{% block titre %}{% trans "Ossia : Agenda" %} {% endblock %}
+
+{% block content %}
+    {% if actu %}
+    <section id="intro" class="main style1 dark fullscreen">
+      <div class="content">
+        <h4> {% blocktrans count counter=actu|length %}Actualité des chef·fe·s:{% plural %}Actualités des chef·fe·s:{% endblocktrans %}</h4>
+        <ul>
+          {% for a in actu %}
+          <li>{% autotranslate current_language a.text a.text_en %}</li>
+          {% endfor %}
+        </ul>
+        </div>
+
+</section>
+    {% endif %}
+
+
+    <section id="home" class="main style1 secondary">
+      <div class="content">
+<header>
+      <h4 style="text-align:left">{% trans "Agenda :" %} </h4>
+      </header>
+        <div style="float:left;width:45%;background:rgba(102, 153, 255,0.25)">
+<table width="100%">
+    <tr>
+        <td width="20%" align="left">
+          &lt;&lt;
+          {% ifequal current_language "fr" %}
+          <a href="{% url "calendrier:view-month" PreviousYear PreviousMonth %}">{{PreviousMonthName|frenchmonth}} {{PreviousYear}}</a>
+          {% else %}
+            <a href="{% url "calendrier:view-month" PreviousYear PreviousMonth %}">{{PreviousMonthName}} {{PreviousYear}}</a>
+          {% endifequal %}
+        </td>
+        <td width="20%" align="center"><a href="{% url "calendrier:home" %}">{% trans "Aujourd'hui" %}</a></td>
+        <td width="20%" align="right">
+          {% ifequal current_language "fr" %}
+            <a href="{% url "calendrier:view-month" NextYear NextMonth %}">{{NextMonthName|frenchmonth}} {{NextYear}}</a> &gt;&gt;
+            {% else %}
+              <a href="{% url "calendrier:view-month" NextYear NextMonth %}">{{NextMonthName}} {{NextYear}}</a> &gt;&gt;
+            {% endifequal %}
+        </td>
+    </tr>
+</table>
+<div id="calendar">
+  {% if user.is_superuser or user.profile.is_chef %}
+  {% ifequal current_language "fr" %}
+  {{Calendar_chef|translate}}
+  {% else %}
+  {{Calendar_chef}}
+  {% endifequal %}
+  {% else %}
+  {% ifequal current_language "fr" %}
+  {{Calendar|translate}}
+  {% else %}
+  {{Calendar}}
+  {% endifequal %}
+  {% endif%}
+</div>
+{% if user.is_superuser or user.profile.is_chef %}
+<a href="{% url "calendrier:create_event" %}" class="button">{% trans "Ajouter un évènement" %}</a>
+{% endif %}
+</div>
+  <div style="float:right;width:45%;background:rgba(102, 153, 255,0.25)">
+  {% if user.is_superuser or user.profile.is_chef %}
+  {% if events_a_venir_chef %}
+
+  <h1> {% blocktrans count counter=events_a_venir_chef|length %}Doodle seulement visible par les cheff·e·s :{% plural %}Doodles seulement visibles par les cheff·e·s :{% endblocktrans %} </h1>
+  <div class="table-wrapper">
+    <table class="default">
+      <thead>
+        <tr>
+          <th>{% trans "Nom" %}</th>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Lieu" %}</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for e in events_a_venir_chef %}
+          <tr>
+          <td><b><u><a href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+            <td>{% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %} </td>
+            <td> {{e.lieu}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+  {% if events_a_venir_chef_public %}
+
+  <h1> {% blocktrans count counter=events_a_venir_chef_public|length %}Doodle visible par les cheff·e·s et le public :{% plural %}Doodles seulement visibles par les cheff·e·s :{% endblocktrans %} </h1>
+  <div class="table-wrapper">
+    <table class="default">
+      <thead>
+        <tr>
+          <th>{% trans "Nom" %}</th>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Lieu" %}</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for e in events_a_venir_chef_public %}
+          <tr>
+          <td><b><u><a href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+            <td>{% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %} </td>
+            <td> {{e.lieu}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  {% endif %}
+  {% endif %}
+  {% if events_a_venir_not_answered %}
+
+  <h1> {% blocktrans count counter=events_a_venir_not_answered|length %}Doodle à remplir !!!! :{% plural %}Doodles à remplir !!!! :{% endblocktrans %} </h1>
+  <div class="table-wrapper">
+    <table class="default">
+      <thead>
+        <tr>
+          <th>{% trans "Nom" %}</th>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Lieu" %}</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for e in events_a_venir_not_answered %}
+          <tr>
+          <td><b><u><a href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+            <td>{% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %} </td>
+            <td> {{e.lieu}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endif %}
+{% if events_a_venir_answered_yes %}
+
+  <h1 style="color:#666160">{% blocktrans count counter=events_a_venir_answered_yes|length %}Evénement auquel je compte participer (réponse Oui):{% plural %}Evénements auquels je compte participer (réponse Oui):{% endblocktrans %} </h1>
+
+  <div class="table-wrapper">
+    <table class="default" >
+      <thead>
+        <tr>
+          <th style="color:#666160">{% trans "Nom" %}</th>
+          <th style="color:#666160" >{% trans "Date" %}</th>
+          <th style="color:#666160" >{% trans "Lieu" %}</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for e in events_a_venir_answered_yes %}
+          <tr>
+          <td  style="color:#666160"><b><u style="color:#666160"><a style="color:#666160" href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+            <td  style="color:#666160"> {% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %} </td>
+            <td  style="color:#666160"> {{e.lieu}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endif %}
+{% if events_a_venir_answered_pe %}
+
+    <h1 > {% blocktrans count counter=events_a_venir_answered_pe|length %}Evénement à confirmer (réponse Peut être):{% plural %}Evénements à confirmer (réponse Peut être):{% endblocktrans %} </h1>
+
+    <div class="table-wrapper">
+      <table class="default" >
+        <thead>
+          <tr>
+            <th style="color:#666160">{% trans "Nom" %}</th>
+            <th style="color:#666160" >{% trans "Date" %}</th>
+            <th style="color:#666160" >{% trans "Lieu" %}</th>
+          </tr>
+        </thead>
+          <tbody>
+            {% for e in events_a_venir_answered_pe %}
+            <tr>
+            <td  style="color:#666160"><b><u style="color:#666160"><a style="color:#666160" href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+              <td  style="color:#666160"> {% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %} </td>
+              <td  style="color:#666160"> {{e.lieu}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+{% endif %}
+{% if events_a_venir_answered_no %}
+
+
+      <h1> {% blocktrans count counter=events_a_venir_answered_no|length %}Evénement sans moi (réponse Non):{% plural %}Evénements sans moi (réponse Non):{% endblocktrans %} </h1>
+
+      <div class="table-wrapper">
+        <table class="default" >
+          <thead>
+            <tr>
+              <th style="color:#666160">{% trans "Nom" %}</th>
+              <th style="color:#666160" >{% trans "Date" %}</th>
+              <th style="color:#666160" >{% trans "Lieu" %}</th>
+            </tr>
+          </thead>
+            <tbody>
+              {% for e in events_a_venir_answered_no %}
+              <tr>
+              <td  style="color:#666160"><b><u style="color:#666160"><a style="color:#666160" href="{% url 'calendrier:view-event' e.id %}">{{ e.nom }}</a></u></b></td>
+
+                <td  style="color:#666160">{% blocktrans with date=e.date debut=e.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %}</td>
+                <td  style="color:#666160"> {{e.lieu}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+{% endif %}
+
+</div>
+</section>
+
+{% endblock %}

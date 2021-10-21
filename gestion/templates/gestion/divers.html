@@ -1,0 +1,17 @@
+{% extends "gestion/base.html" %}
+{% block titre %}Divers{% endblock %}
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h1>Divers</h1>
+<ul>
+<li><a href="{% url "propositions:list" %}">Propositions de morceaux</a></li>
+<li><a href="{% url "pads:list" %}">Pads</a></li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

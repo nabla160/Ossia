@@ -1,0 +1,49 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block titre %}{% trans "L'Ernestophone : Créer un compte" %}{% endblock %}
+{% block content %}
+
+<section id="orchestre" class="main style2 right dark fullscreen">
+	<div class="content box style2">
+
+		<header>
+						<h2>{% trans "Créer un compte :" %}</h2>
+						</header>
+            {% if error %}
+            <p>{{ error }}</p>
+            {% endif %}
+
+
+            <form action="{% url 'registration' %}" method="post">
+                {% csrf_token %}
+								{{ comp_form.non_field_errors }}
+                {{ user_form.as_p }}
+								{% for field in comp_form %}
+						 <div class="fieldWrapper">
+										{{ field.errors }}
+
+
+										{% if field.id_for_label == "id_instru_autre" %}
+						  <div id="instru_autre_field" {% if comp_form.instru.value != "Autre" %} style="display: none; "{% endif %}>
+						{% else %}
+						  <div>
+						{% endif %}
+						     <p>{{ field.label_tag }}
+						        {{ field }}	{% if field.help_text %}
+						        {{ field.help_text|safe }}
+						            {% endif %}</p>
+						</div>
+
+
+						</div>
+
+						{% endfor %}
+                <input type="submit" value="{% trans "Valider l'inscription" %}" />
+            </form>
+
+						                    			      	</div>
+						                    			    </section>
+
+
+{% endblock %}

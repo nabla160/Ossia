@@ -1,0 +1,32 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Ajout de parties" %}{% endblock %}
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+
+<h4>{% trans "Ajouter une partition :" %} </h4>
+{% if sauvegarde %}
+<p>Partition enregistrée</p>
+{% endif %}
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+<div class="row">
+    <div class="6u 12u$(small)">
+<p>
+    <form method ="post" enctype="multipart/form-data" action="{% url 'partitions:upload' nom auteur %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+<p>    <input type="submit" value="{% trans "Enregistrer"%}"/> </p>
+    </form>
+</p>
+<p><a href="{% url "partitions:listepart" nom auteur %}" class="button alt">{% trans "Retour aux partitions" %}</a></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

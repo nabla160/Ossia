@@ -1,0 +1,8 @@
+.pyc
+*.swp
+media/
+/static/
+db.sqlite3
+Ossia/settings/secret.py
+__pycache__
+venv

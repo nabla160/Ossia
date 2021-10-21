@@ -1,0 +1,34 @@
+{% extends "gestion/base.html" %}
+{% load i18n avatar_tags %}
+{% block titre %}{% trans "Modification de l'avatar" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Suppression de l'avatar" %} :</h2>
+ {% if not avatars %}
+     {% url 'avatar_change' as avatar_change_url %}
+     <p>{% trans "Vous n'avez pas d'avatar à supprimer."%}</p>
+        <a href="{{ avatar_change_url }}" class="button">{% trans "Télécharger un avatar" %}</a>&nbsp;<a href="{% url "trombonoscope:change" %}" class="button alt">{% trans "Retour au profil"%}</a>
+ {% else %}
+ <p>{% trans "Séléctione l'avatar pour le supprimer" %}</p>
+ <form method="POST" action="{% url 'avatar_delete' %}">
+
+
+          {% for field in delete_avatar_form %}
+          {% for choice in field.field.choices %}
+          <input id="{{choice.0}}" type="checkbox" name="choices" value="{{choice.0}}">
+          <label for="{{choice.0}}" style="background-color:rgba(0,0,0,0)">
+{{choice.1}}
+          </label>
+          {% endfor %}
+          {% endfor %}
+
+
+            <p>{% csrf_token %}<input type="submit" value="{% trans "Supprimer" %}" />&nbsp;<a href="{% url "trombonoscope:change" %}" class="button alt">{% trans "Retour au profil"%}</a></p>
+        </form>
+ {% endif %}
+</div></div></section></section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Ajouter un morceau" %}{% endblock %}
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+
+<h4>{% trans "Ajouter un morceau" %} :</h4>
+{% if sauvegarde %}
+<p>{% trans "Morceau créé" %}"</p>
+{% endif %}
+{% if error %}
+<p> {{ error }}</p>
+{% endif %}
+<p>
+    <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Ajouter" %}"/>
+    </form>
+</p>
+</div>
+</div>
+<p><a href="{% url 'partitions:liste' %}" class='button alt small'>{% trans "Retour à la liste" %}</a></p>
+
+</section>
+</section>
+{% endblock %}

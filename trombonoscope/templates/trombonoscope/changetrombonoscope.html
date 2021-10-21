@@ -1,0 +1,61 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% load avatar_tags %}
+{% load static %}
+{% block titre %}{% trans "Modification du profil" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Modification du profil trombonoscope" %} :</h2>
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% if success %}
+<p>{% trans "Changement enregistré" %} !</p>
+{% endif %}
+<p><b>{% trans "Avatar pour le trombonoscope :" %}</b></p>
+
+{% if request.user|has_avatar %}
+{% avatar request.user %}
+{% else %}
+<img width='90' src="{% static "images/Ossia_logo.png" %}">
+{% endif %}
+
+    <p>
+      <a class="button alt" href="{% url 'avatar_change' %}">{% trans "Changer l'avatar "%}</a>
+{% if request.user|has_avatar %}
+      &nbsp;<a class="button alt" href="{% url 'avatar_delete' %}">{% trans "Supprimer l'avatar "%}</a>
+{% endif %}
+    </p>
+
+<form action="{% url "trombonoscope:change" %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for field in form %}
+ <div class="fieldWrapper">
+        {{ field.errors }}
+
+
+	      {% if field.id_for_label == "id_trombonoscope_fond" %}
+        						  <div id="couleur_fond_field" {% if form.trombonoscope_colors.value != "autre" %} style="display: none; "{% endif %}>
+        						{% elif field.id_for_label == "id_trombonoscope_texte" %}
+        						  <div id="couleur_text_field" {% if form.trombonoscope_colors.value != "autre" %} style="display: none; "{% endif %}>
+        						{% else %}
+        						  <div>
+        						{% endif %}
+
+        <p>{{ field.label_tag }}
+          {{ field }}	{% if field.help_text %}
+        {{ field.help_text|safe }}
+            {% endif %}</p>
+
+
+</div>
+
+{% endfor %}
+    <input type="submit" value="{% trans "Valider" %}" />
+</form>
+</div></div></section></section>
+{% endblock %}

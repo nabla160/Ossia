@@ -1,0 +1,23 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block extrahead %}
+        <!-- CSS -->
+
+
+{% endblock %}
+{% block titre %}{% trans "L'Ernestophone" %}{% endblock %}
+{% block content %}
+<section id="orchestre" class="main style2 right dark fullscreen">
+	<div class="content box style2">
+
+		<header>
+    <h2>{% trans "Bienvenue !!" %}</h2>
+	</header>
+
+        <p>  {% trans "Ton inscription a bien été validée !" %}</p>
+          <a href="{% url 'login' %}" class="button big " >{% trans "Connecte toi !" %}</a> </div>
+        </div>
+
+      </section>
+  {% endblock %}

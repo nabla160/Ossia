@@ -1,0 +1,24 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Cheff·e·s" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Le pouvoir des cheff·e·s" %} :</h2>
+<ul>
+  <li>  <a href="/admin/">{% trans "Administration" %}</a></li>
+  <li>  <a href="{% url 'calendrier:create_event' %}">{% trans "Ajouter un événement" %}</a></li>
+    <li><a href="{% url 'actu:liste' %}">{% trans "Modifier les actualités" %}</a></li>
+      <li><a href="{% url 'liste_photo' %}">{% trans "Modifier les photos" %}</a></li>
+        <li><a href="{% url 'liste_video' %}">{% trans "Modifier les vidéos" %}</a></li>
+  </ul>
+
+</div>
+</div>
+
+</section>
+</section>
+{% endblock %}

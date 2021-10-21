@@ -1,0 +1,32 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% get_current_language as current_language %}
+{% load autotranslate %}
+{% block titre %}{% trans "Liste des vidéos" %}{% endblock %}
+{% block content %}
+
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content"2
+  <h2>{% trans "Liste des vidéos" %} :</h2>
+
+
+    <p><a href="{% url "add_video" %}" class="button">{% trans "Ajouter une vidéo" %}</a></p>
+
+  <ul class="filelist">
+  {% for v in videos %}
+    <li>
+      <p> <b>{{ v }}</b> &nbsp<a class="button alt" href="{% url "edit_video" v.id %}">{% trans "Modifier" %}</a>
+      &nbsp <a class="button alt" href="{% url "delete_video" v.id %}">{% trans "Supprimer" %}</a></p>
+</li>
+
+  {% empty %}
+    <p>{% trans "Pas de vidéos pour le moment" %}</p>
+  {% endfor %}
+  </ul>
+</div>
+</div>
+</section></section>
+
+{% endblock %}

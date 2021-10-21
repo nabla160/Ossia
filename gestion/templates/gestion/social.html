@@ -1,0 +1,20 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Social" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Social" %} :</h2>
+<ul>
+  <li>  <a href="{% url 'trombonoscope:view' %}">{% trans "Trombonoscope" %}</a></li>
+    <li><a  href="https://photos.cof.ens.fr/index.php/Clubs-du-COF/L'Ernestophone" target="_blank">{% trans "Galerie Photo" %}</a></li>
+  </ul>
+
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

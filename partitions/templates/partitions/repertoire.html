@@ -1,0 +1,93 @@
+{% extends "gestion/base.html" %}
+{% load static %}
+{% load i18n %}
+{% load autotranslate %}
+{% load halflength %}
+{% block titre %}{% trans "Ossia : répertoire" %}{% endblock %}
+{% block content %}
+
+<section id="intro" class="main style1 dark fullscreen">
+  <div class="content">
+    <header>
+      <h2>Répertoire de Ossia</h2>
+      </header>
+    {% if user.profile.is_chef %}
+    <a href="{% url "partitions:ajouter_morceau" %}" class="button alt big">{% trans "Ajouter un morceau" %}</a> &nbsp <a href="{% url "partitions:download_musecores" %}" class="button alt big">{% trans "Télécharger tous les musecores actifs" %}</a>
+    {% elif user.is_authenticated %}
+     <a href="{% url "partitions:download_musecores" %}" class="button alt big">{% trans "Télécharger tous les musecores actifs" %}</a>
+    {% endif %}
+    <footer>
+      <a href="#orchestre" class="button style2 down">Plus</a>
+    </footer>
+  </div>
+</section>
+
+
+        {% for category in categories %}
+
+  {% if forloop.counter0|divisibleby:2 %}
+
+<section id="orchestre" class="main style2 left dark fullscreen">
+<div class="content box style2">
+  {% else %}
+  <section id="bureau" class="main style2 right dark fullscreen">
+    <div class="content box style2">
+  {% endif %}
+
+
+        		<header>
+
+          <h4>{% autotranslate current_language category.name category.nom_en %} :</h4>
+  		</header>
+
+                  <div class="table-wrapper">
+    								<table class="default">
+    									<thead>
+    										<tr>
+    											<th>{% trans "Morceau" %}</th>
+    											<th>{% trans "Compositeur" %}</th>
+    										</tr>
+    									</thead>
+                      	<tbody>
+                          {% with rep=category.partitionset_set.all %}
+
+                            {% for partition in rep %}
+
+                                {% if not user.is_authenticated %}
+                            <tr>
+                              <td>  {{ partition.nom }} </td>
+                              <td> {{ partition.auteur }} </td>
+                            </tr>
+                              {% else %}
+                              <tr>
+                                <td>  <u><a href="{% url "partitions:listepart" partition.nom partition.auteur %}"
+             class="fichier">{{ partition.nom }}</a> </td>
+                                <td> {{ partition.auteur }}  </a></u> </td>
+                                {% if user.profile.is_chef %}<td>
+
+                                   <a href="{% url "partitions:conf_delete_morc" partition.nom partition.auteur %}"
+             class="button small icon fa-trash">{% trans "Supprimer" %}</a></td>
+
+                                {% endif %}
+
+                              </tr>
+
+                            {% endif %}
+
+
+                            {% endfor %}
+                            {% endwith %}
+
+                        </tbody>
+                    </table>
+                  </div>
+
+
+            </div>
+
+
+          </section>
+        {% endfor %}
+
+
+{% endblock %}

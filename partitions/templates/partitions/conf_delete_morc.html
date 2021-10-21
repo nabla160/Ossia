@@ -1,0 +1,17 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Confirmation de suppression" %}{% endblock %}
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h4>{% trans "Confirmation de suppression :" %}</h4>
+<p>{% blocktrans with nom=nom auteur=auteur %}Voulez-vous vraiment supprimer {{ nom }}-{{ auteur }} et toutes les partitions qu'il contient ?{% endblocktrans %}</p>
+<p><a href="{% url "partitions:delete_morc" nom auteur %}" class="button">{% trans "Oui" %}</a></p>
+<p><a href="{% url "partitions:liste" %}" class="button alt">{% trans "Retour à la liste des partitions" %}</a></p>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% load static %}
+{% get_current_language as current_language %}
+{% load autotranslate %}
+{% block titre %}{% trans "Ossia : Agenda" %}{% endblock %}
+{% block content %}
+<div style="background:rgb(102, 153, 255);text-align:center;color:white">
+    <h2>{% trans "Découvrez les différents évènements d'Ossia !" %}</h2>
+</div>
+  <section id="orchestre" class="main style2 right dark fullscreen">
+
+  	<div class="content box style2">
+  		<header>
+
+									<h1>{% blocktrans count counter=events_a_venir|length %}Evénement à venir :{% plural %}Evénements à venir :{% endblocktrans %} </h1>
+                    </header>
+				 						<div class="table-wrapper" color="white">
+				 							<table>
+				 								<thead>
+				 									<tr>
+				 										<th>{% trans "Nom" %}</th>
+				 										<th>{% trans "Date" %}</th>
+				 										<th>{% trans "Lieu" %}</th>
+				 									</tr>
+				 								</thead>
+				 								<tbody>
+				                   {% for event in events_a_venir %}
+
+				 									<tr>
+				 										{% if event.description %}
+				 										<td>
+				 										<div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+				 												<span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{{ event.nom }}</a> </u></span>
+				 												<div class="spoiler">
+				 														<div class="contenuSpoiler">
+				 															{% autotranslate current_language event.description event.description_en %}
+				 														</div>
+				 												</div>
+				 										</div>
+				 									</td>
+				 									{% elif event.description_en %}
+				 									<td>
+				 									<div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+				 											<span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{{ event.nom }}</a> </u></span>
+				 											<div class="spoiler">
+				 													<div class="contenuSpoiler">
+				 														 {{event.description_en|safe}}
+				 													</div>
+				 											</div>
+				 									</div>
+				 								</td>
+				 										{% else %}
+				 												<td><div class="spoilerDiv" align="center">{{ event.nom }}</div></td>
+				 										{% endif %}
+
+				 										<td> {% blocktrans with date=event.date debut=event.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %}</td>
+				 										<td> {{event.lieu}}</td>
+				 									</tr>
+
+				                   {% endfor %}
+
+				 								</tbody>
+				 							</table>
+				 						</div>
+
+
+                    			      	</div>
+                    			    </section>
+                              <section id="bureau" class="main style2 left dark fullscreen">
+                                <div class="content box style2">
+
+									<h1>{% blocktrans count counter=events_passe|length %}Evénement passé :{% plural %}Evénements passés :{% endblocktrans %} </h1>
+
+									<div class="table-wrapper" color="white">
+										<table>
+											<thead>
+												<tr>
+													<th>{% trans "Nom" %}</th>
+													<th>{% trans "Date" %}</th>
+													<th>{% trans "Lieu" %}</th>
+												</tr>
+											</thead>
+											<tbody>
+			                  {% for event in events_passe %}
+
+												<tr>
+													{% if event.description %}
+													<td>
+													<div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+															<span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{% blocktrans with nom=event.nom %}{{ nom }}{% endblocktrans %}</a> </u></span>
+															<div class="spoiler">
+																	<div class="contenuSpoiler">
+																		{% autotranslate current_language event.description event.description_en %}
+																	</div>
+															</div>
+													</div>
+												</td>
+												{% elif event.description_en %}
+												<td>
+												<div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+														<span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{% blocktrans with nom=event.nom %}{{ nom }}{% endblocktrans %}</a> </u></span>
+														<div class="spoiler">
+																<div class="contenuSpoiler">
+																	{{event.description_en|safe}}
+																</div>
+														</div>
+												</div>
+											</td>
+													{% else %}
+															<td><div class="spoilerDiv" align="center">{% blocktrans with nom=event.nom %}{{ nom }}{% endblocktrans %}</div></td>
+													{% endif %}
+
+													<td> {% blocktrans with date=event.date debut=event.debut %}Le {{ date }} à {{ debut }} {% endblocktrans %}</td>
+													<td> {% blocktrans with lieu=event.lieu %} {{lieu}}{% endblocktrans %}</td>
+												</tr>
+
+			                  {% endfor %}
+											</tbody>
+										</table>
+			          </div>
+
+			      	</div>
+			    </section>
+
+{% endblock %}

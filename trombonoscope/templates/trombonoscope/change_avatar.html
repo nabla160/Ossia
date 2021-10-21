@@ -1,0 +1,31 @@
+{% extends "gestion/base.html" %}
+{% load i18n avatar_tags %}
+{% load static %}
+{% block titre %}{% trans "Modification de l'avatar" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Modification de l'avatar" %} :</h2>
+<p>{% trans "Avatar courant: " %}</p>
+{% if request.user|has_avatar %}
+{% avatar request.user %}
+{% else %}
+<img width='90' src="{% static "images/Ossia_logo.png" %}">
+ <p>{% trans "Tu n'as pas encore ajouté d'avatar. Le logo Ossia sera utilisé par defaut." %}</p>
+{% endif %}
+
+   <form enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+       {{ upload_avatar_form.as_p }}
+       <p>{% csrf_token %}<input type="submit" value="{% trans "Modifier mon avatar" %}" /></p>
+   </form>
+
+
+<a href="{% url "trombonoscope:change" %}" class="button alt">{% trans "Retour au profil"%}</a>
+{% if avatars %}
+&nbsp;<a class="button alt" href="{% url 'avatar_delete' %}">{% trans "Supprimer l'avatar "%}</a>
+{% endif %}
+</div></div></section></section>
+{% endblock %}

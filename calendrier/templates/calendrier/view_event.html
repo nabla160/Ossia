@@ -1,0 +1,151 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% load autotranslate %}
+{% get_current_language as current_language %}
+{% block titre %}{{ event.nom.capitalize }}{% endblock %}
+
+{% block content %}
+<section id="banner">
+	<div class="inner" >
+    <h2>{{ event.nom.capitalize }}</h2>
+    <h4>
+      {% blocktrans with date=event.date%} Le {{ date }}{% endblocktrans %}
+      {% if event.fin %}
+          {% blocktrans with debut=event.debut|time:"H:i" fin=event.fin|time:"H:i" %} de {{ debut}} à {{ fin }}{% endblocktrans %}
+      {% else %}
+        {% blocktrans with debut=event.debut|time:"H:i" %}  à {{ debut }}{% endblocktrans %}
+      {% endif %}
+    {% blocktrans with lieu=event.lieu %}- {{ lieu }}{% endblocktrans %}
+    </h4>
+    <h3>{% trans "Participants" %}</h3>
+    <h4>{% blocktrans with nboui=nboui nbpe=nbpe nbnon=nbnon %}<b>{{ nboui }}</b> ont répondu oui, <b>{{ nbpe }}</b> peut-être, et <b>{{ nbnon }}</b> non{% endblocktrans %}</h4>
+<a href="{% url 'calendrier:reponse' event.id %}" class="button">{% trans "Répondre à l'événement" %}</a>
+
+
+	</div>
+
+</section>
+<section id="wrapper" >
+
+          {% if not user.is_superuser or not user.profile.is_chef %}
+          {% if chef_only %}
+          {% trans "Cet événement est encore en construction ! Reviens plus tard." %}
+          {% endif %}
+          {% endif %}
+          {% if user.is_superuser or user.profile.is_chef or not chef_only%}
+
+
+<div id="viewevent">
+
+  {% if user.is_authenticated and event.desc_users %}
+  <section class="wrapper spotlight alt style3" >
+  <div class="inner">
+      <div class="content">
+<div class="box">
+  {% autotranslate current_language event.desc_users event.desc_users_en %}
+
+  </div>
+  {% endif %}
+  {% if user.is_authenticated and not event.desc_users and event.desc_users_en %}
+<div class="box">
+  <p>{{event.desc_users_en|safe}}</p>
+</div>
+</div>
+</section>
+{% endif %}
+</div>
+
+
+<section class="wrapper style1" >
+<div class="inner">
+    <div class="content">
+{% if instrument_count %}
+  <table class="table">
+    <tr>
+      <th>{% trans "Instrument" %}</th>
+      <th>{% trans "Oui" %}</th>
+      <th>{% trans "Peut-être" %}</th>
+    </tr>
+    {% for instrument, sure, maybe, namesoui, namespe,namesnon in instrument_count %}
+      <tr>
+
+            {% if namesoui or namespe %}
+            <td>
+          <div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+              <span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{{ instrument }}</a> </u></span>
+              <div class="spoiler">
+                  <div class="contenuSpoiler">
+                  <table>
+                      <tr>
+                          <th>{% trans "Oui" %}</th>
+                          <th>{% trans "Peut-être" %}</th>
+                      </tr>
+                      <td>
+                          <ul>
+                          {% for name in namesoui %}
+                    <li>{{name}}</li>
+                    {% endfor %}
+                          </ul>
+                      </td>
+                         <td>
+                          <ul>
+                          {% for name in namespe %}
+                    <li>{{name}}</li>
+                    {% endfor %}
+                          </ul>
+                      </td>
+
+                  </table>
+                  </div>
+              </div>
+          </div>
+          </td>
+          {% else %}
+          <td><div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
+              <span class="lienAfficher">	<u style="color:#610B0B">	<a style="cursor:pointer;color:#610B0B">{{ instrument }}</a> </u></span>
+              <div class="spoiler">
+                  <div class="contenuSpoiler">
+                  <table>
+                      <tr>
+                          <th>{% trans "Non" %}</th>
+
+                      </tr>
+                      <td>
+                          <ul>
+                          {% for name in namesnon %}
+                    <li>{{name}}</li>
+                    {% endfor %}
+                          </ul>
+                      </td>
+
+
+                  </table>
+                  </div>
+              </div>
+          </div></td>
+          {% endif %}
+
+        <td>{{ sure }}</td>
+        <td>{{ maybe }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+
+{% endif %}
+
+
+{% if user.is_authenticated %}
+
+  <div id="actions">    {% if user.profile.is_chef %}
+        <p><a href="{% url "calendrier:edit_event" event.id %}" class="button alt">{% trans "Modifier l'événement" %}</a> &nbsp <a href="{% url "calendrier:delete_event" event.id %}" class="button alt">{% trans "Supprimer l'événement" %}</a></p>
+      {% endif %}
+    <p><a href="{% url 'calendrier:change-doodle-name' event.id %}" class="button">{% trans "Changer mon nom pour le doodle" %}</a> &nbsp <a href="{% url 'calendrier:home' %}" class="button">{% trans "Retour au calendrier" %}</a></p>
+  </div>
+  </div></div></section>
+{% endif %}
+
+{% endif %}
+
+</section>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %} {% trans "Modification du profil" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Modification du profil" %} :</h2>
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% if success %}
+<p>{% trans "Changement enregistré !" %}</p>
+{% endif %}
+<form action="{% url 'calendrier:change-doodle-name' id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Valider" %}" />
+</form>
+</div>
+</div>
+</section>
+</section>
+{% endblock %}

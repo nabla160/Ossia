@@ -1,0 +1,23 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% block titre %}{% trans "Changement du mot de passe" %}{% endblock %}
+
+{% block content %}
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+<h2>{% trans "Changement du mot de passe" %} :</h2>
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% if success %}
+<p>{% trans "Changement enregistré" %} !</p>
+{% endif %}
+<form action="{% url 'change_password' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="{% trans "Valider" %}" /> &nbsp <a href="{% url 'change_membre' %}" class="button alt">{% trans "Retour" %}</a>
+</form>
+</div></div></section></section>
+{% endblock %}

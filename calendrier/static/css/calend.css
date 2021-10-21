@@ -1,0 +1,58 @@
+#calendar table {
+    width: 100%;
+}
+
+#calendar table tr th {
+    text-align: center;
+    font-size: 16px;
+    background-color: #132462;
+    color: #ffffff;
+}
+
+#calendar table tr td {
+    width: 10%;
+    border: 1px solid #555;
+    vertical-align: top;
+    height: 120px;
+    padding: 2px;
+}
+
+#calendar td.noday {
+    background-color: #000000;
+}
+
+#calendar td.filled {
+    background-color: #132462;
+
+}
+
+#calendar td.today {
+    border: 4px solid #132462;
+}
+
+
+#calendar tbody tr {
+  border-color: rgba(255, 255, 255, 1);
+  color: #ffffff;
+}
+#calendar tbody tr:nth-child(2n) {
+    background-color: rgba(255, 255, 255, 0.5);
+      color:#000000;
+  }
+#calendar tbody tr:nth-child(2n + 1) {
+    background-color: rgba(255, 255, 255, 0.75);
+    color:#000000;
+  }
+#calendar .dayNumber {
+    font-size: 16px !important;
+    font-weight: bold;
+}
+
+#calendar a {
+    font-size: 16px;
+    color:  #ffffff;
+}
+#calendar a:hover {
+    font-size: 16px;
+    color: rgba(255,255,255,0.2);
+}
