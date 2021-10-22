@@ -27,16 +27,16 @@ class Event(models.Model):
     description_en = models.TextField(blank=True)
     desc_users = models.TextField(
         blank=True,
-        verbose_name=_("Infos (visible seulement des fanfaron·ne·s)"),
+        verbose_name=_("Infos (visible seulement des muscisien·ne·s)"),
         null=True,
     )
     desc_users_en = models.TextField(
         blank=True,
-        verbose_name=_("Infos en anglais (visible seulement des fanfaron·ne·s"),
+        verbose_name=_("Infos en anglais (visible seulement des muscisien·ne·s"),
         null=True,
     )
     CALENDRIER_CHOICES = [
-        ("F", _("Visible seulement par les fanfarons")),
+        ("F", _("Visible seulement par les muscisiens")),
         ("T", _("Afficher dans le calendrier pour tous")),
         ("H", _("Hall of fame")),
         ("C", _("Visible seulement par les cheff·e·s")),
@@ -61,12 +61,4 @@ class Participants(models.Model):
     reponse = models.CharField(
         _("Réponse"), max_length=20, default="non", choices=ANSWERS
     )
-    instrument = models.CharField(max_length=50, blank=True, null=True)
-    dont_play_main = models.CharField(
-        _("Je veux jouer d'un instrument different de mon instrument principal:"),
-        default="Non",
-        null=False,
-        max_length=3,
-        choices=[("Non", _("Non")), ("Oui", _("Oui"))],
-    )
-    details = models.CharField(max_length=50, blank=True)
+    

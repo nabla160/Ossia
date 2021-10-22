@@ -26,7 +26,7 @@
 
 		<!-- Header -->
 			<header id="header">
-			<a href="{% url 'home' %}">	<img src="{% static 'images/logo.png' %}" style="width:auto; height:3em"/></a>
+			<a href="{% url 'home' %}">	<img src="{% static 'images/logo.PNG' %}" style="width:auto; height:3em"/></a>
 				<nav>
 					<ul>
 						{% if not user.is_authenticated %}
@@ -40,6 +40,8 @@
 						<li><a href="{% url 'login' %}"><button>Se connecter</button></a></li>
 						{% else %}
 						<li><a href="{% url 'partitions:liste' %}">Repertoire</a></li>
+						<li><a href="{% url 'home' %}">Calendrier</a></li>
+						<li><a href="{% url 'logout' %}"><button>Se déconnecter</button></a></li>
 						{% endif %}
 					</ul>
 				</nav>

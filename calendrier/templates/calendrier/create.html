@@ -2,21 +2,24 @@
 {% load i18n %}
 {% block titre%}{% trans "Création d'Évènement" %}{% endblock %}
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
-{% if envoi %}{% trans "L'événement a bien été créé !" %}{% endif %}
-<br>
-{% if erreur %}
-{{ erreur }}
-{% endif %}
+<section id="create" class="main style3 secondary">
+  <div class="content">
+
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+    <p/>
+    <h2>Création d'événement</h2>
+
+  {% if envoi %}{% trans "L'événement a bien été créé !" %}{% endif %}
+  <br>
+  {% if erreur %}
+  {{ erreur }}
+  {% endif %}
+      <div style="width:90%;text-align:left;display: inline-block;">
 <form action="{% url 'calendrier:create_event' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="{% trans "Enregistrer" %}" /> &nbsp <a href="{% url 'calendrier:home' %}" class="button alt">{% trans "Retour au calendrier" %}</a>
 </form>
-</div></div>
-</section>
+</div></div></div>
 </section>
 {% endblock %}

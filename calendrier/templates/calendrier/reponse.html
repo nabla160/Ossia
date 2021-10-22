@@ -3,26 +3,16 @@
 {% block titre %}{% trans "Participation à un événement" %}{% endblock %}
 
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
-          {% if not user.is_superuser or not user.profile.is_chef %}
-          {% if user.is_superuser or user.profile.is_chef %}
-          {% trans "Cet événement est encore en construction ! Reviens plus tard." %}
-          {% endif %}
-          {% endif %}
-          {% if user.is_superuser or user.profile.is_chef or not chef_only%}
-          <div class="row">
-              <div class="6u 12u$(small)">
+<section id="create" class="main style3 secondary">
+  <div class="content">
+
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+</p>
 {% if envoi %}<p>{% trans "Votre réponse a été enregistrée !" %}</p>{% endif %}
 
 
-<p><a href="{% url 'calendrier:view-event' id %}" class="button alt">{% trans "Retour à l'événement" %}</a></p>
 <div><h4> {% blocktrans with nom=ev.nom date=ev.date debut=ev.debut|time:"H:i" %} Voulez vous participer à l'événement {{ nom }}, le {{ date }} à {{ debut }} ?{% endblocktrans %}</h4></div>
-<p> <b>{% trans "Instrument principal"%} : {% if request.user.profile.instru == "Autre" %}{{request.user.profile.instru_autre}}{% else %}{{request.user.profile.instru}}{% endif %}</b></p>
-
-
+  <div style="width:90%;text-align:left;display: inline-block;">
 <form action="{% url 'calendrier:reponse' id %}" method="post">
     {% csrf_token %}
     {{ form.non_field_errors }}
@@ -41,27 +31,11 @@
 </div>
 
 {% endfor %}
-    <input type="submit" value="{% trans "Valider" %}" />
+    <input type="submit" value="{% trans "Valider" %}" /> <a href="{% url 'calendrier:view-event' id %}"><button>{% trans "Retour à l'événement" %}</button></a>
 </form>
+
 </div>
-</div>
-{% endif %}
 </div>
 </div>
 </section>
-</section>
-{% endblock %}
-
-{% block script %}
-<script type="text/javascript">
-  $('#id_dont_play_main').on('change', function() {
-
-        if (this.value == "Oui" ) {
-            $('#instru_ev_field').show();
-        }
-        else {
-            $('#instru_ev_field').hide();
-        }
-    });
-</script>
 {% endblock %}

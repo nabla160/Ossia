@@ -2,18 +2,20 @@
 {% load i18n %}
 {% block titre %}{% trans "Confirmer supression" %}{% endblock %}
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+<section id="create" class="main style3 secondary">
+  <div class="content">
 
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+    </p>
 <h4>{% trans "Confirmation de suppression" %}</h4>
 <p>{% trans "Voulez-vous vraiment supprimer cette partition ?" %}</p>
-<p><a href="{% url "partitions:delete" nom auteur id %}" class="button " >{% trans "Oui" %}</a></p>
-<p><a href="{% url "partitions:listepart" nom auteur %}" class="button alt" >{% trans "Retour à la liste des partitions" %}</a></p>
+<p><a href="{% url "partitions:delete" nom auteur id %}" ><button>{% trans "Oui" %}</button></a></p>
+<p><a href="{% url "partitions:listepart" nom auteur %}" ><button>{% trans "Retour à la liste des partitions" %}</button></a></p>
 
 </div>
 </div>
+</div>
 </section>
-</section>
+
 {% endblock %}

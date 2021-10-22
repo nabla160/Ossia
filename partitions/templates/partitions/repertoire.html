@@ -9,12 +9,12 @@
 <section id="intro" class="main style1 dark fullscreen">
   <div class="content">
     <header>
-      <h2>Répertoire de Ossia</h2>
+      <h2 style="color:#ffff">Répertoire de Ossia</h2>
       </header>
     {% if user.profile.is_chef %}
-    <a href="{% url "partitions:ajouter_morceau" %}" class="button alt big">{% trans "Ajouter un morceau" %}</a> &nbsp <a href="{% url "partitions:download_musecores" %}" class="button alt big">{% trans "Télécharger tous les musecores actifs" %}</a>
+    <a href="{% url "partitions:ajouter_morceau" %}"><button>{% trans "Ajouter un morceau" %}</button></a> &nbsp <a href="{% url "partitions:download_musecores" %}"><button>{% trans "Télécharger tous les musecores actifs" %}</button></a>
     {% elif user.is_authenticated %}
-     <a href="{% url "partitions:download_musecores" %}" class="button alt big">{% trans "Télécharger tous les musecores actifs" %}</a>
+     <a href="{% url "partitions:download_musecores" %}"><button>{% trans "Télécharger tous les musecores actifs" %}</button></a>
     {% endif %}
     <footer>
       <a href="#orchestre" class="button style2 down">Plus</a>
@@ -28,10 +28,10 @@
   {% if forloop.counter0|divisibleby:2 %}
 
 <section id="orchestre" class="main style2 left dark fullscreen">
-<div class="content box style2">
+<div class="content boxpop style2">
   {% else %}
   <section id="bureau" class="main style2 right dark fullscreen">
-    <div class="content box style2">
+    <div class="content boxpop style2">
   {% endif %}
 
 
@@ -66,7 +66,7 @@
                                 {% if user.profile.is_chef %}<td>
 
                                    <a href="{% url "partitions:conf_delete_morc" partition.nom partition.auteur %}"
-             class="button small icon fa-trash">{% trans "Supprimer" %}</a></td>
+            ><button>{% trans "Supprimer" %}</button></a></td>
 
                                 {% endif %}
 

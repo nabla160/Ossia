@@ -3,11 +3,11 @@
 {% block titre %}{% trans "Suppression d'un événement" %}{% endblock %}
 
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+<section id="create" class="main style3 secondary">
+  <div class="content">
 
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
 <form action="" method="post">
     {% csrf_token %}
     <p>{% blocktrans with object=object %} Voulez vous vraiment supprimer l'événement {{ object }}?{% endblocktrans %}</p>
@@ -15,6 +15,6 @@
 </form>
 </div>
 </div>
-</section>
+</div>
 </section>
 {% endblock %}

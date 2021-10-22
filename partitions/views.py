@@ -135,24 +135,25 @@ class Upload(ChefRequiredMixin, TemplateView):
         error = False
         sauvegarde = False
         if form.is_valid():
-            partition = Partition()
-            partition.part = form.cleaned_data["file"]
-            partition.nom = form.cleaned_data["title"]
-            if "/" in partition.nom:
-                error = _("Le caractère / n'est pas autorisé dans le nom")
-                context = self.get_context_data()
-                context["error"] = error
-                return render(request, self.template_name, context)
-            mor = get_object_or_404(
-                PartitionSet, nom=self.kwargs["nom"], auteur=self.kwargs["auteur"]
-            )
-            partition.morceau = mor
-            try:
-                mor.partition_set.get(nom=partition.nom)
-                error = _("Un morceau du même nom existe déjà")
-            except Partition.DoesNotExist:
-                partition.save()
-                sauvegarde = True
+            for file in request.FILES.getlist('file'):
+                partition = Partition()
+                partition.part = file
+                partition.nom = file.name
+                if "/" in partition.nom:
+                    error = _("Le caractère / n'est pas autorisé dans le nom")
+                    context = self.get_context_data()
+                    context["error"] = error
+                    return render(request, self.template_name, context)
+                mor = get_object_or_404(
+                    PartitionSet, nom=self.kwargs["nom"], auteur=self.kwargs["auteur"]
+                )
+                partition.morceau = mor
+                try:
+                    mor.partition_set.get(nom=partition.nom)
+                    error = _("Un morceau du même nom existe déjà")
+                except Partition.DoesNotExist:
+                    partition.save()
+                    sauvegarde = True
 
         context = self.get_context_data()
         context["form"] = form

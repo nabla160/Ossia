@@ -1,0 +1,29 @@
+{% extends "gestion/base.html" %}
+{% load i18n %}
+{% get_current_language as current_language %}
+{% load autotranslate %}
+{% block titre %}{% trans "Liste des actualités" %}{% endblock %}
+{% block content %}
+
+<section id="wrapper" >
+  <section class="wrapper style1" >
+  <div class="inner">
+      <div class="content">
+  <h4>{% trans "Liste des actualités" %} :</h4>
+
+
+    <p><a href="{% url "actu:add_actu" %}" class="button">{% trans "Ajouter une actualité" %}</a></p>
+
+  <ul class="filelist">
+  {% for a in actus %}
+    <li>
+      <p>{% autotranslate current_language a.text a.text_en %}   &nbsp <a class="button alt" href="{% url "actu:edit_actu" a.id %}">{% trans "Modifier" %}</a>
+      &nbsp <a class="button alt" href="{% url "actu:delete_actu" a.id %}">{% trans "Supprimer" %}</a></p>
+</li>
+
+  {% empty %}
+    <p>{% trans "Pas d'actualités pour le moment" %}</p>
+  {% endfor %}
+  </ul>
+</div></div></section></section>
+{% endblock %}

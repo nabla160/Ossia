@@ -2,11 +2,12 @@
 {% load i18n %}
 {% block titre %}{% trans "Ajout de parties" %}{% endblock %}
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+<section id="create" class="main style3 secondary">
+  <div class="content">
 
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+    </p>
 <h4>{% trans "Ajouter une partition :" %} </h4>
 {% if sauvegarde %}
 <p>Partition enregistrée</p>
@@ -23,10 +24,9 @@
 <p>    <input type="submit" value="{% trans "Enregistrer"%}"/> </p>
     </form>
 </p>
-<p><a href="{% url "partitions:listepart" nom auteur %}" class="button alt">{% trans "Retour aux partitions" %}</a></p>
+<p><a href="{% url "partitions:listepart" nom auteur %}"><button>{% trans "Retour aux partitions" %}</button></a></p>
 </div>
 </div>
 </div>
-</section>
 </section>
 {% endblock %}

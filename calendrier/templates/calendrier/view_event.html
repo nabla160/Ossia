@@ -5,9 +5,12 @@
 {% block titre %}{{ event.nom.capitalize }}{% endblock %}
 
 {% block content %}
-<section id="banner">
-	<div class="inner" >
+<section id="home" class="main style1 secondary">
+	<div class="content">
+		<div id="viewevent" style="float:left;width:50%">
+
     <h2>{{ event.nom.capitalize }}</h2>
+
     <h4>
       {% blocktrans with date=event.date%} Le {{ date }}{% endblocktrans %}
       {% if event.fin %}
@@ -19,13 +22,14 @@
     </h4>
     <h3>{% trans "Participants" %}</h3>
     <h4>{% blocktrans with nboui=nboui nbpe=nbpe nbnon=nbnon %}<b>{{ nboui }}</b> ont répondu oui, <b>{{ nbpe }}</b> peut-être, et <b>{{ nbnon }}</b> non{% endblocktrans %}</h4>
-<a href="{% url 'calendrier:reponse' event.id %}" class="button">{% trans "Répondre à l'événement" %}</a>
+		{% if user.is_authenticated and event.desc_users %}
 
+		<div class="box">
+		{% autotranslate current_language event.desc_users event.desc_users_en %}
 
-	</div>
-
-</section>
-<section id="wrapper" >
+		</div>
+		{% endif %}
+<a href="{% url 'calendrier:reponse' event.id %}"><button>{% trans "Répondre à l'événement" %}</button></a>
 
           {% if not user.is_superuser or not user.profile.is_chef %}
           {% if chef_only %}
@@ -34,51 +38,31 @@
           {% endif %}
           {% if user.is_superuser or user.profile.is_chef or not chef_only%}
 
-
-<div id="viewevent">
-
-  {% if user.is_authenticated and event.desc_users %}
-  <section class="wrapper spotlight alt style3" >
-  <div class="inner">
-      <div class="content">
-<div class="box">
-  {% autotranslate current_language event.desc_users event.desc_users_en %}
-
-  </div>
-  {% endif %}
-  {% if user.is_authenticated and not event.desc_users and event.desc_users_en %}
-<div class="box">
-  <p>{{event.desc_users_en|safe}}</p>
 </div>
-</div>
-</section>
-{% endif %}
-</div>
-
-
-<section class="wrapper style1" >
-<div class="inner">
-    <div class="content">
+<div style="float:left;width:50%">
 {% if instrument_count %}
-  <table class="table">
+
+  <table class="table" width="100%"style="background: rgb(102, 153, 255);">
     <tr>
-      <th>{% trans "Instrument" %}</th>
-      <th>{% trans "Oui" %}</th>
-      <th>{% trans "Peut-être" %}</th>
+      <th >{% trans "Instrument" %}</th>
+      <th width="20%">{% trans "Oui" %}</th>
+      <th width="20%">{% trans "Peut-être" %}</th>
+			<th width="20%">{% trans "Non" %}</th>
     </tr>
-    {% for instrument, sure, maybe, namesoui, namespe,namesnon in instrument_count %}
+    {% for instrument, no, sure, maybe, namesoui, namespe,namesnon in instrument_count %}
       <tr>
 
-            {% if namesoui or namespe %}
+
             <td>
           <div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
               <span class="lienAfficher">	<u style="color:#ffffff">	<a style="cursor:pointer">{{ instrument }}</a> </u></span>
               <div class="spoiler">
                   <div class="contenuSpoiler">
-                  <table>
+                  <table style="background: #99bbff;" >
                       <tr>
                           <th>{% trans "Oui" %}</th>
                           <th>{% trans "Peut-être" %}</th>
+													<th>{% trans "Non" %}</th>
                       </tr>
                       <td>
                           <ul>
@@ -93,6 +77,11 @@
                     <li>{{name}}</li>
                     {% endfor %}
                           </ul>
+													<ul>
+													{% for name in namesnon %}
+										<li>{{name}}</li>
+										{% endfor %}
+													</ul>
                       </td>
 
                   </table>
@@ -100,33 +89,10 @@
               </div>
           </div>
           </td>
-          {% else %}
-          <td><div class="spoilerDiv" onclick="ouvrirFermerSpoiler(this);" align="center">
-              <span class="lienAfficher">	<u style="color:#610B0B">	<a style="cursor:pointer;color:#610B0B">{{ instrument }}</a> </u></span>
-              <div class="spoiler">
-                  <div class="contenuSpoiler">
-                  <table>
-                      <tr>
-                          <th>{% trans "Non" %}</th>
-
-                      </tr>
-                      <td>
-                          <ul>
-                          {% for name in namesnon %}
-                    <li>{{name}}</li>
-                    {% endfor %}
-                          </ul>
-                      </td>
-
-
-                  </table>
-                  </div>
-              </div>
-          </div></td>
-          {% endif %}
 
         <td>{{ sure }}</td>
         <td>{{ maybe }}</td>
+				<td>{{ no }}</td>
       </tr>
     {% endfor %}
   </table>
@@ -137,15 +103,16 @@
 {% if user.is_authenticated %}
 
   <div id="actions">    {% if user.profile.is_chef %}
-        <p><a href="{% url "calendrier:edit_event" event.id %}" class="button alt">{% trans "Modifier l'événement" %}</a> &nbsp <a href="{% url "calendrier:delete_event" event.id %}" class="button alt">{% trans "Supprimer l'événement" %}</a></p>
+        <a href="{% url "calendrier:edit_event" event.id %}"><button >{% trans "Modifier l'événement" %}</button></a> &nbsp <a href="{% url "calendrier:delete_event" event.id %}"><button>{% trans "Supprimer l'événement" %}</button></a
       {% endif %}
-    <p><a href="{% url 'calendrier:change-doodle-name' event.id %}" class="button">{% trans "Changer mon nom pour le doodle" %}</a> &nbsp <a href="{% url 'calendrier:home' %}" class="button">{% trans "Retour au calendrier" %}</a></p>
+    <a href="{% url 'calendrier:change-doodle-name' event.id %}" ><button >{% trans "Changer mon nom pour le doodle" %}</button></a> &nbsp <a href="{% url 'calendrier:home' %}"><button>{% trans "Retour au calendrier" %}</button></a>
   </div>
-  </div></div></section>
-{% endif %}
+	</div>
 
 {% endif %}
 
+{% endif %}
+  </div>
 </section>
-</section>
+
 {% endblock %}

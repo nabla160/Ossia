@@ -5,37 +5,30 @@
 {% get_current_language as current_language %}
 {% load autotranslate %}
 {% block content %}
-
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
-
-
+<section id="create" class="main style3 secondary">
+  <div class="content">
+<div style="float:left;width:40%;">
 					<h4>{{p.nom}} - {{p.auteur}} [{% autotranslate current_language p.category.name p.category.nom_en %}] :</h4>
 
 					{% if suppression %}
 			<p>{{ suppression }}</p>
 	{% endif %}
 
-					<div class="row">
-
-						<div class="5u 12u$(small)">
 
 							<div class="table-wrapper">
 
-								<table class="default">
+								<table style="background: rgb(102, 153, 255);">
 									<tbody>
 										{% for p in part %}
 										{% if user.is_authenticated and ".mscz" in p.part.url %}
-										<td><p class="fichier">{{ p.nom }}</p></td>
+										<td width="60%"><p class="fichier">{{ p.nom }}</p></td>
 
 
 											{% if user.is_authenticated %}
-										<td> <a href="{% url "partitions:download" nom auteur p.id %}" class="button icon fa-download">{% trans "Télécharger" %}</a></td>
+										<td width="20%"> <a href="{% url "partitions:download" nom auteur p.id %}"><button>{% trans "Télécharger" %}</button></a></td>
 											{% endif %}
-										{% if user.profile.is_chef %}	<td>
-									<a href="{% url "partitions:conf_delete" nom auteur p.pk %}" class="button icon fa-deleate">{% trans "Supprimer" %}</a></td>
+										{% if user.profile.is_chef %}	<td width="20%">
+									<a href="{% url "partitions:conf_delete" nom auteur p.pk %}"><button>{% trans "Supprimer" %}</button></a></td>
 										{% endif %}
 										{% endif %}
 										{% endfor %}
@@ -52,10 +45,10 @@
                             {% endif %}
 
                             {% if user.is_authenticated %}
-                          <td> <a href="{% url "partitions:download" nom auteur p.id %}" class="button icon fa-download">{% trans "Télécharger" %}</a></td>
+                          <td> <a href="{% url "partitions:download" nom auteur p.id %}"><button>{% trans "Télécharger" %}</button></a></td>
                             {% endif %}
 													{% if user.profile.is_chef %}	<td>
-            						<a href="{% url "partitions:conf_delete" nom auteur p.pk %}" class="button icon fa-deleate">{% trans "Supprimer" %}</a></td>
+            						<a href="{% url "partitions:conf_delete" nom auteur p.pk %}"><button>{% trans "Supprimer" %}</button></a></td>
         					{% endif %}
 										</tr>
 										{% endif %}
@@ -64,9 +57,9 @@
 									{% endfor %}
 							</tbody>
 						</table>
-
+	 <a href="{% url "partitions:liste" %}"><button>{% trans "Retour au répertoire" %}</button></a>
 						{% if user.profile.is_chef %}
-						  <p><a href="{% url "partitions:upload" p.nom p.auteur %}" class='button'>{% trans "Ajouter un média" %}</a></p>
+						 <a href="{% url "partitions:upload" p.nom p.auteur %}"><button>{% trans "Ajouter un média" %}</button></a>
 
 						{% if infos or infos_en %}
 
@@ -79,19 +72,18 @@
 
 							{% endif %}
 					</div>
-
-
-						</div>
-							<div class="1u 12u$(small)">
-								<p></p>
-							</div>
-						<div class="6u 12u$(small)">
+</div>
+<div style="float:right;width:50%;">
 							{% if user.profile.is_chef %}
+              <div class="box" style="background:#ffff">
+
 			<form action="{% url "partitions:listepart" nom auteur %}" id="chef-edit-form" method="post">
 					{% csrf_token %}
 					{{ form.as_p }}
 					<input type="submit" value="Enregister" />
 			</form>
+      </div>
+
 	{% else %}
                 {% if infos or infos_en %}
 					<h3>{% trans "Infos utiles :" %}</h3>
@@ -105,14 +97,8 @@
 
 			</div>
 
-		</div>
+      			</div>
 
-		<a href="{% url "partitions:liste" %}" class="button alt" >{% trans "Retour au répertoire" %}</a>
-
-				</div>
-
-
-			</div>
 		</section>
-		</section>
+
       {% endblock %}

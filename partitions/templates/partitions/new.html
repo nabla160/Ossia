@@ -2,11 +2,12 @@
 {% load i18n %}
 {% block titre %}{% trans "Ajouter un morceau" %}{% endblock %}
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+<section id="create" class="main style3 secondary">
+  <div class="content">
 
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+<p/>
 <h4>{% trans "Ajouter un morceau" %} :</h4>
 {% if sauvegarde %}
 <p>{% trans "Morceau créé" %}"</p>
@@ -14,17 +15,17 @@
 {% if error %}
 <p> {{ error }}</p>
 {% endif %}
-<p>
+
     <form method="post" action="">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="{% trans "Ajouter" %}"/>
+    <input type="submit" value="{% trans "Ajouter" %}"/> &nbsp<a href="{% url 'partitions:liste' %}"><button>{% trans "Retour à la liste" %}</button></a>
     </form>
-</p>
 </div>
 </div>
-<p><a href="{% url 'partitions:liste' %}" class='button alt small'>{% trans "Retour à la liste" %}</a></p>
+</div>
+
 
 </section>
-</section>
+
 {% endblock %}

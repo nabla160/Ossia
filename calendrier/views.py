@@ -187,20 +187,19 @@ class ViewEvent(LoginRequiredMixin, TemplateView):
             return redirect(reverse("calendrier:home"))
 
         # Count the number of occurences of each instrument
-        instrument_count = defaultdict(lambda: (0, 0, [], [], []))
+        instrument_count = defaultdict(lambda: (0, 0, 0, [], [], []))
         for participant in participants:
             instru = participant.participant.instru
             if instru == "Autre":
                 instru = participant.participant.instru_autre
-            if participant.dont_play_main == "Oui":
-                instru = participant.instrument
-
-            sure, maybe, namesoui, namespe, namesnon = instrument_count[instru]
+            
+            no, sure, maybe, namesoui, namespe, namesnon = instrument_count[instru]
 
             if participant.reponse == "oui":
 
                 namesoui += [participant.participant.get_doodlename()]
                 instrument_count[instru] = (
+                    no,
                     sure + 1,
                     maybe,
                     namesoui,
@@ -210,6 +209,7 @@ class ViewEvent(LoginRequiredMixin, TemplateView):
             elif participant.reponse == "pe":
                 namespe += [participant.participant.get_doodlename()]
                 instrument_count[instru] = (
+                    no,
                     sure,
                     maybe + 1,
                     namesoui,
@@ -218,11 +218,12 @@ class ViewEvent(LoginRequiredMixin, TemplateView):
                 )
             else:
                 namesnon += [participant.participant.get_doodlename()]
-                instrument_count[instru] = (sure, maybe, namesoui, namespe, namesnon)
+                instrument_count[instru] = (no+1,sure, maybe, namesoui, namespe, namesnon)
 
         instrument_count = [
-            (instrument, sure, maybe, namesoui, namespe, namesnon)
+            (instrument, no,sure, maybe, namesoui, namespe, namesnon)
             for instrument, (
+                no,
                 sure,
                 maybe,
                 namesoui,

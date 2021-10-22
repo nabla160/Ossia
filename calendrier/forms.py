@@ -37,10 +37,7 @@ class EventForm(forms.ModelForm):
 class ParticipantsForm(forms.ModelForm):
     class Meta:
         model = Participants
-        fields = ("reponse", "details")
-        widgets = {
-            "details": forms.Textarea(attrs={"placeholder": _("50 caractères max")}),
-        }
+        fields = ("reponse",)
 
 
 class ChangeDoodleName(forms.ModelForm):
