@@ -26,23 +26,32 @@
 
 		<!-- Header -->
 			<header id="header">
-			<a href="{% url 'home' %}">	<img src="{% static 'images/logo.PNG' %}" style="width:auto; height:3em"/></a>
+			<a href="{% url 'home' %}">	<img src="{% static 'images/logo.png' %}" style="width:auto; height:3em"/></a>
 				<nav>
 					<ul>
 						{% if not user.is_authenticated %}
-						<li><a href="{% url 'home' %}#orchestre">L'orchestre</a></li>
-						<li><a href="{% url 'home' %}#bureau">Le bureau</a></li>
-						<li><a href="{% url 'home' %}#chef">Les chefs</a></li>
-						<li><a href="{% url 'home' %}#contact">Contact</a></li>
-						<li><a href="{% url 'rejoins' %}">Rejoingez nous</a></li>
-						<li><a href="{% url 'partitions:liste' %}">Repertoire</a></li>
-						<li><a href="{% url 'calendrier:liste' %}">Agenda</a></li>
-						<li><a href="{% url 'login' %}"><button>Se connecter</button></a></li>
+						<li><a href="{% url 'home' %}#orchestre">{% trans "L'orchestre" %}</a></li>
+						<li><a href="{% url 'home' %}#bureau">{% trans "Le bureau" %}</a></li>
+						<li><a href="{% url 'home' %}#chef">{% trans "Les chefs" %}</a></li>
+						<li><a href="{% url 'home' %}#contact">{% trans "Contact" %}</a></li>
+						<li><a href="{% url 'rejoins' %}">{% trans "Rejoingez nous" %}</a></li>
+						<li><a href="{% url 'partitions:liste' %}">{% trans "Repertoire" %}</a></li>
+						<li><a href="{% url 'calendrier:liste' %}">{% trans "Agenda" %}</a></li>
+						<li><a href="{% url 'login' %}"><button>{% trans "Se connecter" %}</button></a></li>
 						{% else %}
-						<li><a href="{% url 'partitions:liste' %}">Repertoire</a></li>
-						<li><a href="{% url 'home' %}">Calendrier</a></li>
-						<li><a href="{% url 'logout' %}"><button>Se déconnecter</button></a></li>
+						<li><a href="{% url 'partitions:liste' %}">{% trans "Repertoire" %}</a></li>
+						<li><a href="{% url 'home' %}">{% trans "Calendrier" %}</a></li>
+						<li>  <a  href="{% url 'trombonoscope:view' %}">{% trans "Trombonoscope" %}</a></li>
+						<li><a href="{% url 'logout' %}"><button>{% trans "Se déconnecter" %}</button></a></li>
+						{% if user.profile.is_chef %}
+					<li>	<a href="{% url 'actu:liste' %}">{% trans "Modifier les actualités" %}</a></li>
 						{% endif %}
+							{% endif %}
+						{% ifequal current_language "fr" %}
+						<li><a href="{% changelang "en" %}" ><img src="{% static 'images\en_flag.png' %}" width="60" height="40" style="vertical-align: middle"></a></li>
+						{% else %}
+						<li><a href="{% changelang "fr" %}" ><img src="{% static 'images\fr_flag.png' %}" width="60" height="40" style="vertical-align: middle"></a></li>
+						{% endifequal %}
 					</ul>
 				</nav>
 			</header>

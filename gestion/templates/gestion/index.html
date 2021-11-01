@@ -12,10 +12,10 @@
         <img src="{% static 'images/logobig.png' %}">
       </header>
 
-      Bienvenue sur le site web d'Ossia. Future muscisien ou oreille attentive n'hésites pas à parcourir ce site pour en apprendre plus à propos de notre ensemble.
+      {% trans "Bienvenue sur le site web d'Ossia. Future muscisien ou oreille attentive n'hésites pas à parcourir ce site pour en apprendre plus à propos de notre ensemble." %}"
 
       <footer>
-        <a href="#orchestre" class="button style2 down">Plus</a>
+        <a href="#orchestre" class="button style2 down">{% trans "Plus" %}</a>
       </footer>
     </div>
   </section>
@@ -26,40 +26,40 @@
       <header>
         <h2>L'orchestre</h2>
       </header>
-      <p>Nous nous retrouvons tout les lundi soir en salle L117 des mines pour répéter notre superbe répertoire.
+      <p>{% trans "Nous nous retrouvons tout les lundi soir en salle L117 des mines pour répéter notre superbe répertoire.
       Pour nous voir consulter notre agenda.
-    N'hésitez pas à nous envoyer un message pour nous rejoindre</p>
+    N'hésitez pas à nous envoyer un message pour nous rejoindre" %}</p>
     </div>
-    <a href="#bureau" class="button style2 down anchored">Suivant</a>
+    <a href="#bureau" class="button style2 down anchored">{% trans "Suivant" %}</a>
   </section>
 
 <!-- Two -->
   <section id="bureau" class="main style2 left dark fullscreen">
     <div class="content boxpop style2">
       <header>
-        <h2>Le bureau</h2>
+        <h2>{% trans "Le bureau" %}</h2>
       </header>
-      <p>Coucou je suis un texte présentant le bureau</p>
+      <p>{% trans "Coucou je suis un texte présentant le bureau" %}</p>
     </div>
-    <a href="#chef" class="button style2 down anchored">Suivant</a>
+    <a href="#chef" class="button style2 down anchored">{% trans "Suivant" %}</a>
   </section>
 
 <!-- Work -->
   <section id="chef" class="main style3 primary">
     <div class="content">
       <header>
-        <h2>Les chefs</h2>
-        <p>Un text présentant les chefs.</p>
+        <h2>{% trans "Les chefs" %}</h2>
+        <p>{% trans "Un texte présentant les chefs." %}"</p>
           </header>
         <div style="float:left;width:45%;background:rgba(102, 153, 255,0.25)">
    <h4>Anthony</h4>
    <img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
-   <p> Une présentation </p>
+   <p> {% trans "Une présentation" %} </p>
 </div>
 <div style="float:right;width:45%;background:rgba(102, 153, 255,0.25)">
   <h4>Nicolas</h4>
   <img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
-  <p> Une présentation </p>
+  <p> {% trans "Une présentation" %} </p>
 </div>
 
 
@@ -70,8 +70,8 @@
   <section id="contact" class="main style3 secondary">
     <div class="content">
       <header>
-        <h2>Nous contacter</h2>
-        <p>Vous voulez engager une harmonie ? N'hésitez pas à nous contacter</p>
+        <h2>{% trans "Nous contacter" %}</h2>
+        <p>{% trans "Vous voulez engager une harmonie ? N'hésitez pas à nous contacter" %}</p>
       </header>
       <div class="boxpop">
         <form method="post" action="#">

@@ -126,9 +126,6 @@ class OssiaUser(models.Model):
         ],
         default="non",
     )
-    instru_trombonoscope = models.CharField(
-        _("Instrument affiché sur le trombonoscope"), max_length=30, blank=True
-    )
     nom_trombonoscope = models.CharField(
         _("Nom affiché sur le trombonoscope"), max_length=30, blank=True
     )
@@ -146,7 +143,7 @@ class OssiaUser(models.Model):
         _("Couleur du texte du profil"), default="#ffffff"
     )
 
-    
+
 
     class Meta:
         verbose_name = _("Profil Musicien")

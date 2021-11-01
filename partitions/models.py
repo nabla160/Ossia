@@ -44,24 +44,12 @@ class PartitionSet(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, verbose_name=_("Type de partition")
     )
-    download_unlogged = models.CharField(
-        _("Téléchargeable non connecté ?"),
-        default="n",
-        choices=[("n", _("Non")), ("o", _("Oui"))],
-        max_length=1,
-    )
+
     infos = models.TextField(_("Infos utiles"), null=False, blank=True, default="")
     infos_en = models.TextField(
         "Infos utiles en anglais", null=False, blank=True, default=""
     )
-    url = models.URLField(
-        _("Url d'une video youtube"),
-        null=True,
-        blank=True,
-        help_text=_(
-            "Dans Youtube cliquer sur partager puis importer pour récuperer la bonne adresse"
-        ),
-    )
+    
 
     def __str__(self):
         return "%s - %s [%s]" % (self.nom, self.auteur, self.category)

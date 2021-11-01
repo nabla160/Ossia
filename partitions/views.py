@@ -165,8 +165,8 @@ class Upload(ChefRequiredMixin, TemplateView):
 def see(request, nom, auteur, partition_id):
     partition = get_object_or_404(Partition, id=partition_id)
     _, extension = os.path.splitext(partition.part.path)
-    download_unlogged = partition.morceau.download_unlogged
-    if download_unlogged == "o" or request.user.is_authenticated:
+
+    if request.user.is_authenticated:
         if ".pdf" == extension:
             with open(partition.part.path, "rb") as f:
                 myfile = File(f)
@@ -298,8 +298,8 @@ class ConfDeleteMorc(ChefRequiredMixin, TemplateView):
 def download(request, nom, auteur, partition_id):
 
     partition = get_object_or_404(Partition, id=partition_id)
-    download_unlogged = partition.morceau.download_unlogged
-    if download_unlogged == "o" or request.user.is_authenticated:
+
+    if  request.user.is_authenticated:
         with open(partition.part.path, "rb") as f:
             myfile = File(f)
             response = HttpResponse(content=myfile.read())

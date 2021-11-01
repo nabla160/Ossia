@@ -14,22 +14,24 @@
 {% block titre %}{% trans "Ossia : Agenda" %} {% endblock %}
 
 {% block content %}
-    {% if actu %}
-    <section id="intro" class="main style1 dark fullscreen">
-      <div class="content">
-        <h4> {% blocktrans count counter=actu|length %}Actualité des chef·fe·s:{% plural %}Actualités des chef·fe·s:{% endblocktrans %}</h4>
-        <ul>
-          {% for a in actu %}
-          <li>{% autotranslate current_language a.text a.text_en %}</li>
-          {% endfor %}
-        </ul>
-        </div>
 
-</section>
-    {% endif %}
     <section id="home" class="main style1 secondary">
       <div class="content">
+        {% if actu %}
+        <div style="float:left;width:100%;text-align:center;background:rgb(102, 153, 255);align:center">
+        <div style="width:90%;text-align:left;display: inline-block;">
+          <p/>
+            <h4> {% blocktrans count counter=actu|length %}Actualité des chefs:{% plural %}Actualités des chef·fe·s:{% endblocktrans %}</h4>
+            <ul>
+              {% for a in actu %}
+              <li>{% autotranslate current_language a.text a.text_en %}</li>
+              {% endfor %}
+            </ul>
+            </div>
+              </div>
+  <p/>
 
+        {% endif %}
       <h4 style="text-align:left">{% trans "Agenda :" %} </h4>
 
 

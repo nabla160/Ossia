@@ -19,7 +19,6 @@ class ChangeTrombonoscope(forms.ModelForm):
         fields = (
             "trombonoscope",
             "nom_trombonoscope",
-            "instru_trombonoscope",
             "trombonoscope_colors",
             "trombonoscope_fond",
             "trombonoscope_texte",

@@ -4,7 +4,7 @@ from .models import PartitionSet
 
 
 class UploadFileForm(forms.Form):
-    file = forms.FileField()
+    file=forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
 
 class UploadMorceauForm(forms.Form):
@@ -15,4 +15,4 @@ class UploadMorceauForm(forms.Form):
 class ChefEditMorceauForm(forms.ModelForm):
     class Meta:
         model = PartitionSet
-        fields = ("category", "download_unlogged", "infos", "url", "infos_en")
+        fields = ("category", "infos", "infos_en")

@@ -5,37 +5,33 @@
 {% load avatar_tags %}
 {% block titre %}{% trans "Ossia : Trombonoscope" %}{% endblock %}
 {% block content %}
-<section id="banner">
-  <div class="inner" >
+<section id="create" class="main style3 secondary">
+  <div class="content">
 
+  <div style="float:left;width:90%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+  <p/>
 
-
-        <h2> {% trans "Trombonoscope:" %}</h2>
         <p><a href="{% url "trombonoscope:change" %}" class="button">{% trans "Changer mon profil trombonoscope" %}</a></p>
-        </div>
-
-</section>
-<section id="wrapper">
-	<section class="wrapper spotlight style1" >
-	<div class="inner">
-			<div class="content">
-
-						<h4>{% trans "Trombonoscope actuel :" %}</h4>
 
 
 
-						{% for user_tromb in trombonoscope_actuel %}
 
-							<div class="box" style="background-color:{{user_tromb.trombonoscope_fond}}; color:{{user_tromb.trombonoscope_texte}}">
+						<h2>{% trans "Trombonoscope actuel :" %}</h2>
+
+						{% for instrument, user_list in trombonoscope_actuel %}
+	<h4>{{instrument}} :</h4>
+  {% for user_tromb in user_list %}
+							<div class="box" style="width:20%;background-color:{{user_tromb.trombonoscope_fond}}; color:{{user_tromb.trombonoscope_texte}}">
 
 
-								<span class="image fit">
+								<div>
 						 {% if user_tromb.user|has_avatar %}
 						 {% avatar user_tromb.user 250 %}
 						 {% else %}
-						 <img src="{% static "images/Ossia_logo.png" %}">
+						 <img src="{% static "images/logoround.png" %}">
 						 {% endif %}
-					 </span>
+					 </div>
 
 
 						 <p align="center">
@@ -43,58 +39,48 @@
 							 {{user_tromb.nom_trombonoscope}}
 							 {% else %}
 							 {{user_tromb.user.first_name}} {{user_tromb.user.last_name}}{% endif %}<br>
-							 {% if user_tromb.instru_trombonoscope %}
-							 {{user_tromb.instru_trombonoscope}}
-							 {% else %}
-							 {{user_tromb.instru}}{% endif %}</p>
+							 </p>
 						 </div>
 
-
+             <div style="width:5%"/>
 
 					{% endfor %}
+          {% endfor %}
 
+{% if trombonoscope_vieux %}
+						<h2>{% trans "Trombonoscope des anciens :" %}</h2>
+
+            						{% for instrument, user_list in trombonoscope_vieux %}
+            	<h4>{{instrument}} :</h4>
+              {% for user_tromb in user_list %}
+            							<div class="box" style="width:20%;background-color:{{user_tromb.trombonoscope_fond}}; color:{{user_tromb.trombonoscope_texte}}">
+
+
+            								<div>
+            						 {% if user_tromb.user|has_avatar %}
+            						 {% avatar user_tromb.user 250 %}
+            						 {% else %}
+            						 <img src="{% static "images/logoround.png" %}">
+            						 {% endif %}
+            					 </div>
+
+
+            						 <p align="center">
+            							 {% if user_tromb.nom_trombonoscope %}
+            							 {{user_tromb.nom_trombonoscope}}
+            							 {% else %}
+            							 {{user_tromb.user.first_name}} {{user_tromb.user.last_name}}{% endif %}<br>
+            							</p>
+            						 </div>
+
+
+
+            					{% endfor %}
+                      {% endfor %}
+{% endif %}
 
           </div>
-					</div>
-				</section>
-				<section class="wrapper spotlight alt style3" >
-				<div class="inner">
-						<div class="content">
-						<h4>{% trans "Trombonoscope des anciens :" %}</h4>
-						<div class="row">
-
-            {% for user_tromb in trombonoscope_vieux %}
-
-							<div class="box" style="background-color:{{user_tromb.trombonoscope_fond}}; color:{{user_tromb.trombonoscope_texte}}">
-
-
-								<span class="image fit">
-	     			{% if user_tromb.user|has_avatar %}
-	         	{% avatar user_tromb.user 250 %}
-	     			{% else %}
-	         	<img src="{% static "images/Ossia_logo.png" %}">
-	     			{% endif %}
-	 				</span>
-
-
-
-						 <p align="center">
-							 {% if user_tromb.nom_trombonoscope %}
-							 {{user_tromb.nom_trombonoscope}}
-							 {% else %}
-							 {{user_tromb.user.first_name}} {{user_tromb.user.last_name}}{% endif %}<br>
-							 {% if user_tromb.instru_trombonoscope %}
-							 {{user_tromb.instru_trombonoscope}}
-							 {% else %}
-							 {{user_tromb.instru}}{% endif %}</p>
-						 </div>
-
-
-
-            {% endfor %}
-
-
-</div>
+          </div>
           </div>
         </section>
 

@@ -59,7 +59,7 @@
 						</table>
 	 <a href="{% url "partitions:liste" %}"><button>{% trans "Retour au répertoire" %}</button></a>
 						{% if user.profile.is_chef %}
-						 <a href="{% url "partitions:upload" p.nom p.auteur %}"><button>{% trans "Ajouter un média" %}</button></a>
+						 <a href="{% url "partitions:upload" p.nom p.auteur %}"><button>{% trans "Ajouter des fichiers" %}</button></a>
 
 						{% if infos or infos_en %}
 
@@ -91,9 +91,7 @@
 {% endif %}
 
 {% endif %}
-{% if p.url %}
-<iframe width="560" height="315" src="{{p.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-{% endif %}
+
 
 			</div>
 

@@ -13,7 +13,7 @@
   {% endif %}
 
   {% if user.is_authenticated %}
-    <h3><a href="{% url "partitions:ajouter_morceau" %}">Ajouter un morceau</a></h3>
+    <h3><a href="{% url "partitions:ajouter_morceau" %}">{% trans "Ajouter un morceau" %}</a></h3>
   {% endif %}
 
   {% for category in categories %}
@@ -29,7 +29,7 @@
         {% endif %}
         {% if user.profile.is_chef %}
           <a href="{% url "partitions:conf_delete_morc" partition.nom partition.auteur %}"
-             class="supprimer">Supprimer</a>
+             class="supprimer">{% trans "Supprimer" %}</a>
         {% endif %}
       </li>
     {% endfor %}

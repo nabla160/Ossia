@@ -3,10 +3,13 @@
 {%block titre %}{% trans "Ajout d'une actualité" %}{% endblock %}
 
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+
+<section id="create" class="main style3 secondary">
+  <div class="content">
+
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+  <p/>
 <p><a href="{% url "actu:liste" %}" class="button alt">{% trans "Retour à la liste" %}</a></p>
 {% if envoi %}<p>{% trans "Cette actualité a été enregistrée" %}.{% endif %}
 <form action="" method="post">
@@ -14,5 +17,5 @@
     {{ form.as_p }}
     <input type="submit" value="{% trans "Enregistrer" %}" />
 </form>
-</div></div></section></section>
+</div></div></div></section></section>
 {% endblock %}

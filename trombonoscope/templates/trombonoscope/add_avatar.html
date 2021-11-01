@@ -3,10 +3,12 @@
 {% block titre %}{% trans "Modification de l'avatar" %}{% endblock %}
 
 {% block content %}
-<section id="wrapper" >
-  <section class="wrapper style1" >
-  <div class="inner">
-      <div class="content">
+<section id="create" class="main style3 secondary">
+  <div class="content">
+
+  <div style="float:left;width:70%;text-align:center;background:#ffff;align:center">
+<div style="width:90%;text-align:left;display: inline-block;">
+  <p/>
         <p>{% trans "Avatar courant: " %}</p>
            {% avatar user %}
 
@@ -17,5 +19,5 @@
 
 
 <a href="{% url "trombonoscope:change" %}" class="button alt">{% trans "Retour au profil"%}</a>
-</div></div></section></section>
+</div></div></div></section>
 {% endblock %}
