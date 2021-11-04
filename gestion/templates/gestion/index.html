@@ -12,7 +12,7 @@
         <img src="{% static 'images/logobig.png' %}">
       </header>
 
-      {% trans "Bienvenue sur le site web d'Ossia. Future muscisien ou oreille attentive n'hésites pas à parcourir ce site pour en apprendre plus à propos de notre ensemble." %}"
+      {% trans "Orchestre d’harmonie interuniversitaire de Paris" %}
 
       <footer>
         <a href="#orchestre" class="button style2 down">{% trans "Plus" %}</a>
@@ -24,46 +24,84 @@
   <section id="orchestre" class="main style2 right dark fullscreen">
     <div class="content boxpop style2">
       <header>
-        <h2>L'orchestre</h2>
+        <h2>{% trans "L'orchestre" %}</h2>
       </header>
-      <p>{% trans "Nous nous retrouvons tout les lundi soir en salle L117 des mines pour répéter notre superbe répertoire.
-      Pour nous voir consulter notre agenda.
-    N'hésitez pas à nous envoyer un message pour nous rejoindre" %}</p>
+      <p>{% blocktrans %}Créé en 2019 par des étudiants de Paris Sciences et Lettres (PSL), Ossia est un orchestre d’harmonie qui regroupe instrumentistes à vent et percussionnistes de nombreuses universités parisiennes. Elle a vocation à être un pont entre musiciens d’horizons différents.
+        Ses musiciens viennent des Mines, de l’Ecole des Chartes, de l’ENS, de l’ESPCI, de la Sorbonne…
+        Son répertoire est varié, allant de la musique de film à des classiques d’orchestre d’harmonie en passant par des pièces originales écrites par un des chefs !
+        L’année est découpée en 3 sessions qui se terminent par au moins un concert chacune. La session de rentrée court de la deuxième semaine de septembre aux vacances de Noël. La seconde de janvier à… L’année est close par la dernière session qui commence en ...{% endblocktrans %}</p>
     </div>
     <a href="#bureau" class="button style2 down anchored">{% trans "Suivant" %}</a>
   </section>
 
-<!-- Two -->
-  <section id="bureau" class="main style2 left dark fullscreen">
-    <div class="content boxpop style2">
-      <header>
-        <h2>{% trans "Le bureau" %}</h2>
-      </header>
-      <p>{% trans "Coucou je suis un texte présentant le bureau" %}</p>
-    </div>
-    <a href="#chef" class="button style2 down anchored">{% trans "Suivant" %}</a>
-  </section>
 
 <!-- Work -->
-  <section id="chef" class="main style3 primary">
+  <section id="bureau" class="main style3 primary">
     <div class="content">
       <header>
-        <h2>{% trans "Les chefs" %}</h2>
-        <p>{% trans "Un texte présentant les chefs." %}"</p>
+        <h2>{% trans "Le bureau" %}</h2>
+
           </header>
         <div style="float:left;width:45%;background:rgba(102, 153, 255,0.25)">
-   <h4>Anthony</h4>
+   <h4>{% trans "Trésorier" %}</h4>
    <img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
    <p> {% trans "Une présentation" %} </p>
 </div>
 <div style="float:right;width:45%;background:rgba(102, 153, 255,0.25)">
-  <h4>Nicolas</h4>
+  <h4>{% trans "Respo communication intérieure"%}</h4>
   <img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
   <p> {% trans "Une présentation" %} </p>
+</div>
+<div style="float:left;width:100%">
+  <p/>
+  </div>
+<div style="float:left;width:45%;background:rgba(102, 153, 255,0.25)">
+<h4>{% trans "Respo partitions" %}</h4>
+<img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
+<p> {% trans "Une présentation" %} </p>
+</div>
+<div style="float:right;width:45%;background:rgba(102, 153, 255,0.25)">
+<h4>{% trans "Respo communication extérieure"%}</h4>
+<img src="{% static 'images/people.png' %}" style="width:4em;height:auto"/>
+<p> {% trans "Une présentation" %} </p>
 </div>
 
 
     </div>
+  </section>
+  <!-- Two -->
+    <section id="chef" class="main style2 left dark fullscreen">
+      <div class="content boxpop style2">
+        <header>
+          <h2>{% trans "La direction musicale" %}</h2>
+        </header>
+        <p>{% trans "Ses chefs actuels, Anthony et Nicolas sont étudiants en chimie, en thèse et master respectivement. Bien qu’amateurs, ils ont une formation musicale solide. Multi-instrumentistes tous les deux, ils ont notamment suivi des formations de direction d’orchestre et d’écriture. Ils mènent ainsi avec bonne humeur et professionnalisme cette toute jeune harmonie. En plus de la direction, les chefs sont aussi les auteurs de la majorité des arrangements joués par Ossia et même de l’écriture de pièces inédites dans le cas de Nicolas !  " %}</p>
+      </div>
+      <a href="#rejoindre" class="button style2 down anchored">{% trans "Suivant" %}</a>
+    </section>
+  <!-- Rejoindre -->
+  <section id="rejoindre" class="main style3 secondary">
+    <div class="content">
+      <header>
+        <h2>{% trans "Nous Rejoindre" %}</h2>
+        <p>{% trans "Nous recrutons tout au long de l’année, sans audition, dans la limite des places disponibles ! N’hésite pas à remplir le formulaire suivant si tu veux nous rejoindre. Nous répondrons très rapidement. " %}"</p>
+        <p>{% trans "En ce moment : nous n’acceptons plus de nouveaux flûtistes et nous cherchons des cuivres graves (tuba, cor, trombone) !" %}"</p>
+      </header>
+      <div class="boxpop">
+        <form method="post" action="#">
+          <div class="fields">
+            <div class="field half"><input type="text" name="name" placeholder="Nom" /></div>
+            <div class="field half"><input type="email" name="email" placeholder="Email" /></div>
+            <div class="field "><input type="text"name="instru" placeholder="Instrument"/></div>
+            <div class="field"><textarea name="message" placeholder="Message" rows="6"></textarea></div>
+          </div>
+          <ul class="actions special">
+            <li><input type="submit" value="{% trans "Envoyer" %}" /></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+
   </section>
 
 <!-- Contact -->
@@ -81,7 +119,7 @@
             <div class="field"><textarea name="message" placeholder="Message" rows="6"></textarea></div>
           </div>
           <ul class="actions special">
-            <li><input type="submit" value="Send Message" /></li>
+            <li><input type="submit" value="{% trans "Envoyer" %}" /></li>
           </ul>
         </form>
       </div>

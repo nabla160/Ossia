@@ -2393,7 +2393,7 @@ input, select, textarea {
 
 /* Two */
 
-	#bureau {
+	#chef {
 		background: url("images/overlay.png"), url("../../images/bureau.jpg");
 		background-size: 256px 256px, cover;
 		background-attachment: fixed, fixed;
@@ -2441,3 +2441,45 @@ input, select, textarea {
 			}
 
 		}
+
+		/* rejoindre */
+
+			#rejoindre {
+				overflow: hidden;
+				padding-bottom: 0;
+			}
+
+				#rejoindre .boxpop {
+					-moz-transition: -moz-transform 0.5s ease-out;
+					-webkit-transition: -webkit-transform 0.5s ease-out;
+					-ms-transition: -ms-transform 0.5s ease-out;
+					transition: transform 0.5s ease-out;
+					-moz-transform: translateY(0);
+					-webkit-transform: translateY(0);
+					-ms-transform: translateY(0);
+					transform: translateY(0);
+					position: relative;
+				}
+
+				#rejoindre.inactive .boxpop {
+					-moz-transform: translateY(100%);
+					-webkit-transform: translateY(100%);
+					-ms-transform: translateY(100%);
+					transform: translateY(100%);
+				}
+
+				@media screen and (max-width: 736px) {
+
+					#rejoindre .boxpop {
+						padding: 1.5em 1.5em 2em 1.5em;
+					}
+
+				}
+
+				@media screen and (max-width: 480px) {
+
+					#rejoindre .box {
+						padding: 1em 1em 2em 1em;
+					}
+
+				}

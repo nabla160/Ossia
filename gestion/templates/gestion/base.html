@@ -32,11 +32,12 @@
 						{% if not user.is_authenticated %}
 						<li><a href="{% url 'home' %}#orchestre">{% trans "L'orchestre" %}</a></li>
 						<li><a href="{% url 'home' %}#bureau">{% trans "Le bureau" %}</a></li>
-						<li><a href="{% url 'home' %}#chef">{% trans "Les chefs" %}</a></li>
+						<li><a href="{% url 'home' %}#chef">{% trans "La direction musicale" %}</a></li>
+						<li><a href="{% url 'calendrier:liste' %}">{% trans "Galerie" %}</a></li>
+						<li><a href="{% url 'home' %}#rejoindre">{% trans "Rejoindre" %}</a></li>
 						<li><a href="{% url 'home' %}#contact">{% trans "Contact" %}</a></li>
-						<li><a href="{% url 'rejoins' %}">{% trans "Rejoingez nous" %}</a></li>
-						<li><a href="{% url 'partitions:liste' %}">{% trans "Repertoire" %}</a></li>
-						<li><a href="{% url 'calendrier:liste' %}">{% trans "Agenda" %}</a></li>
+						<li><a href="{% url 'calendrier:liste' %}">{% trans "Concerts" %}</a></li>
+						<li><a href="{% url 'calendrier:liste' %}">{% trans "Affiches" %}</a></li>
 						<li><a href="{% url 'login' %}"><button>{% trans "Se connecter" %}</button></a></li>
 						{% else %}
 						<li><a href="{% url 'partitions:liste' %}">{% trans "Repertoire" %}</a></li>
