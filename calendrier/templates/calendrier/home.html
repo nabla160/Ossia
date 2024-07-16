@@ -40,35 +40,35 @@
     <tr>
         <td width="20%" align="left">
           &lt;&lt;
-          {% ifequal current_language "fr" %}
+          {% if current_language == "fr" %}
           <a href="{% url "calendrier:view-month" PreviousYear PreviousMonth %}">{{PreviousMonthName|frenchmonth}} {{PreviousYear}}</a>
           {% else %}
             <a href="{% url "calendrier:view-month" PreviousYear PreviousMonth %}">{{PreviousMonthName}} {{PreviousYear}}</a>
-          {% endifequal %}
+          {% endif %}
         </td>
         <td width="20%" align="center"><a href="{% url "calendrier:home" %}">{% trans "Aujourd'hui" %}</a></td>
         <td width="20%" align="right">
-          {% ifequal current_language "fr" %}
+          {% if current_language == "fr" %}
             <a href="{% url "calendrier:view-month" NextYear NextMonth %}">{{NextMonthName|frenchmonth}} {{NextYear}}</a> &gt;&gt;
             {% else %}
               <a href="{% url "calendrier:view-month" NextYear NextMonth %}">{{NextMonthName}} {{NextYear}}</a> &gt;&gt;
-            {% endifequal %}
+            {% endif %}
         </td>
     </tr>
 </table>
 <div id="calendar" style="background:rgba(102, 153, 255,0.25)">
   {% if user.is_superuser or user.profile.is_chef %}
-  {% ifequal current_language "fr" %}
+  {% if current_language == "fr" %}
   {{Calendar_chef|translate}}
   {% else %}
   {{Calendar_chef}}
-  {% endifequal %}
+  {% endif %}
   {% else %}
-  {% ifequal current_language "fr" %}
+  {% if current_language == "fr" %}
   {{Calendar|translate}}
   {% else %}
   {{Calendar}}
-  {% endifequal %}
+  {% endif %}
   {% endif%}
 </div>
 {% if user.is_superuser or user.profile.is_chef %}

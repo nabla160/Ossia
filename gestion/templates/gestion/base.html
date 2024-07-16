@@ -48,11 +48,11 @@
 					<li>	<a href="{% url 'actu:liste' %}">{% trans "Modifier les actualités" %}</a></li>
 						{% endif %}
 							{% endif %}
-						{% ifequal current_language "fr" %}
+						{% if current_language == "fr" %}
 						<li><a href="{% changelang "en" %}" ><img src="{% static 'images\en_flag.png' %}" width="60" height="40" style="vertical-align: middle"></a></li>
 						{% else %}
 						<li><a href="{% changelang "fr" %}" ><img src="{% static 'images\fr_flag.png' %}" width="60" height="40" style="vertical-align: middle"></a></li>
-						{% endifequal %}
+						{% endif %}
 					</ul>
 				</nav>
 			</header>
