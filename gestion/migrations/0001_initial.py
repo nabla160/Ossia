@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                 ('phone', models.CharField(blank=True, help_text='seulement visible par les chef·fe·s', max_length=20, verbose_name='Téléphone')),
                 ('instru', models.CharField(choices=[('Clarinette', 'Clarinette'), ('Euphonium', 'Euphonium'), ('Percussion', 'Percussion'), ('Piccolo', 'Piccolo'), ('Saxophone Alto', 'Saxophone Alto'), ('Saxophone Ténor', 'Saxophone Ténor'), ('Saxophone Baryton', 'Saxophone Baryton'), ('Souba', 'Souba'), ('Trombone', 'Trombone'), ('Trompette', 'Trompette'), ('Autre', 'Autre'), ('ne sais pas', 'Je ne sais pas encore')], default='ne sais pas', max_length=40, verbose_name='Instrument joué')),
                 ('instru_autre', models.CharField(blank=True, max_length=100, null=True, verbose_name='Lequel ?')),
-                ('slug', models.CharField(editable=False, max_length=7, unique=True)),
+                ('slug', models.CharField(editable=False, max_length=7, unique=False)),
                 ('doodlename', models.CharField(blank=True, max_length=30, verbose_name='Nom pour le doodle')),
                 ('trombonoscope', models.CharField(choices=[('non', 'Non'), ('o_a', 'Oui en tant que fanfaron actuel'), ('o_v', 'Oui en tant que vie·ille·ux')], default='non', max_length=3, null=True, verbose_name='Je souhaite apparaitre dans le trombonoscope:')),
                 ('instru_trombonoscope', models.CharField(blank=True, max_length=30, verbose_name='Instrument affiché sur le trombonoscope')),
